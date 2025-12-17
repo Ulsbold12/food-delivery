@@ -11,40 +11,31 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const schema = z
-  .object({
-    email: z.string().min(6, "Min 6 тэмдэгт"),
-    password: z.string(),
-  })
-  .refine((d) => d.password === d.confirm, {
-    message: "Password таарахгүй байна",
-    path: ["confirm"],
-  });
+const schema = z.object({
+  email: z.string().email("Зөв email оруул"),
+});
 
-type Step2Props = {
-  next: () => void;
-  prev: () => void;
-};
-
-export default function Step3({ next, prev }: Step2Props) {
+export default function Step4() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: { email: "" },
   });
 
   return (
     <Card className="w-[420px] border-none shadow-none">
       <CardHeader className="space-y-2">
-        <h1 className="text-3xl font-bold">Log in </h1>
-        <p className="text-gray-400">Log in to enjoy your favorite dishes.</p>
+        <h1 className="text-3xl font-bold">Reset your password </h1>
+        <p className="text-gray-400">
+          Enter your email to receive a password reset link.
+        </p>
       </CardHeader>
 
       <CardContent>
         <Form {...form}>
-          <form className="space-y-5">
+          <form className="space-y-6">
             <FormField
               control={form.control}
               name="email"
@@ -53,7 +44,6 @@ export default function Step3({ next, prev }: Step2Props) {
                   <FormControl>
                     <Input
                       {...field}
-                      type="email"
                       placeholder="Enter your email address"
                       className="h-12"
                     />
@@ -63,33 +53,10 @@ export default function Step3({ next, prev }: Step2Props) {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="password"
-                      placeholder="Password"
-                      className="h-12"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <Button className="w-full h-12 text-base" type="submit">
+              Send link
+            </Button>
 
-            <h1 className="text-black" onClick={next}>
-              Forgot password ?
-            </h1>
-
-            <div className="flex gap-3">
-              <Button type="button" className="flex-1 h-12">
-                Let’s Go
-              </Button>
-            </div>
             <p className="text-center text-sm text-gray-400">
               Don’t have an account?
               <span className="text-blue-600 ml-1 cursor-pointer">

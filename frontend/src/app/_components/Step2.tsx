@@ -24,11 +24,18 @@ const schema = z
     path: ["confirm"],
   });
 
-export default function Step2({ prev }: { prev: () => void }) {
+type Step2Props = {
+  next: () => void;
+  prev: () => void;
+};
+
+export default function Step2({ next, prev }: Step2Props) {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { password: "", confirm: "" },
   });
+
+  const onSubmit = () => next();
 
   return (
     <Card className="w-[420px] border-none shadow-none">
@@ -41,7 +48,7 @@ export default function Step2({ prev }: { prev: () => void }) {
 
       <CardContent>
         <Form {...form}>
-          <form className="space-y-5">
+          <form className="space-y-5 " onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="password"
@@ -83,11 +90,10 @@ export default function Step2({ prev }: { prev: () => void }) {
                 type="button"
                 variant="outline"
                 className="flex-1 h-12"
-                onClick={prev}
-              >
+                onClick={prev}>
                 Back
               </Button>
-              <Button type="button" className="flex-1 h-12" onClick={next}>
+              <Button className="flex-1 h-12" type="submit">
                 Let’s Go
               </Button>
             </div>
