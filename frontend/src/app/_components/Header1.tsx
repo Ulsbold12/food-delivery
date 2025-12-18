@@ -5,7 +5,7 @@ import { Location } from "./Location";
 export const Header1 = () => {
   return (
     <>
-      <div className="w-screen h-[68px] bg-black flex flex-row justify-between">
+      <div className="w-screen h-[68px] bg-black flex flex-row justify-between items-center">
         <img src="/Logo Container.png" className="w-[146px] h-[44px]" />
         <div className="flex flex-row gap-2">
           <Location />
