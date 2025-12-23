@@ -1,20 +1,14 @@
 "use client";
 
 import { FoodCard } from "./_components/FoodCard";
+import { FoodSection } from "./_components/FoodSection";
 
 export default function Homepage() {
   return (
     <>
-      <div className="bg-neutral-700">
+      <div className="bg-neutral-700 flex flex-col items-center">
         <img src="/Image÷.png" className="w-screen h-[718px]" />
-        <div className=" grid grid-cols-3 ">
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-        </div>
+        <FoodSection />
       </div>
     </>
   );
