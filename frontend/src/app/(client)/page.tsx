@@ -1,5 +1,6 @@
 "use client";
 
+import { Footer } from "../_components/footer";
 import { FoodCard } from "./_components/FoodCard";
 import { FoodSection } from "./_components/FoodSection";
 
@@ -9,6 +10,7 @@ export default function Homepage() {
       <div className="bg-neutral-700 flex flex-col items-center">
         <img src="/Image÷.png" className="w-screen h-[718px]" />
         <FoodSection />
+        <Footer />
       </div>
     </>
   );
