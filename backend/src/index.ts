@@ -1,36 +1,15 @@
 import express from "express";
-import { time } from "node:console";
+import { connectToDatabase } from "./database/index.ts";
+import { FoodRouter } from "./routes/food.router.ts";
+
+await connectToDatabase();
 
 const app = express();
 
 app.use(express.json());
 
-let arr: string[] = [];
+app.use("/foods", FoodRouter);
 
-app.get("/", (req, res) => {
-  res.json(arr);
-});
-
-app.post("/", (req, res) => {
-  const data = req.body;
-
-  arr.push(data.value);
-
-  console.log("data", data);
-
-  res.send("Succes");
-});
-
-app.put("/", (req, res) => {
-  const data = req.body;
-
-  const value = data.value;
-  
-  arr = arr.filter((item) => item !== value);
-
-  res.send("Sucess");
-});
-
-app.listen(3003, () => {
-  console.log(`Example app listening on port ${3003}`);
+app.listen(4000, () => {
+  console.log("example app listening on port 4000");
 });
