@@ -194,7 +194,7 @@ export function DataTable() {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-[1171px] h-[800px] ml-10">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."

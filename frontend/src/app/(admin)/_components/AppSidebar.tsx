@@ -1,4 +1,5 @@
 "use client";
+import { Logo } from "@/app/_components/Logo";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -9,13 +10,13 @@ import {
 
 export const AppSidebar = () => {
   return (
-    <div className="w-[205px] h-screen">
+    <div className="h-screen">
       <Sidebar>
-        <SidebarHeader>
-          <img src="/Logo Container.png" className="w-[165px] h-[44px]" />
+        <SidebarHeader className="flex justify-center items-center mt-8">
+          <Logo />
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup>
+          <SidebarGroup className="flex flex-col gap-2 mt-8">
             <Button className="bg-white text-black">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
