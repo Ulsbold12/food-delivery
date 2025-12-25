@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CartDrawer } from "./CartDrawer";
 
 export const FoodCard = () => {
   const [count, setCount] = useState(1);
@@ -80,11 +81,7 @@ export const FoodCard = () => {
                   </div>
                 </div>
 
-                <Button
-                  onClick={handleAdd}
-                  className="text-white bg-black w-[377px] h-[44px] rounded-3xl">
-                  Add to cart
-                </Button>
+                <CartDrawer />
               </div>
             </div>
           </div>

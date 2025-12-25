@@ -5,6 +5,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
@@ -16,8 +17,15 @@ type CartDrawerProps = {
 export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-[420px] p-0">
-        <div className="bg-neutral-700 h-full p-4 rounded-l-3xl">
+      <SheetTrigger>
+        <Button className="text-white bg-black w-[377px] h-[44px] rounded-3xl">
+          Add to card
+        </Button>
+      </SheetTrigger>
+      <SheetContent
+        side="right"
+        className="w-[420px] p-0 bg-neutral-700 rounded-2xl">
+        <div className=" h-full p-4 rounded-l-3xl">
           <SheetHeader>
             <SheetTitle className="text-white text-lg">
               🛒 Order detail
