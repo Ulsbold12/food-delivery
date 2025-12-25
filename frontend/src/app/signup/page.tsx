@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Step1 from "../_components/Step1";
 import Step2 from "../_components/Step2";
-import Step3 from "../_components/Step3";
-import Step4 from "../_components/Step4";
+import Step3 from "../login/_components/Step3";
+import Step4 from "../login/_components/Step4";
 
 export default function MultiStepWrapper() {
   const [step, setStep] = useState(1);

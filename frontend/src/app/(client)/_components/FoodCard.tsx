@@ -19,7 +19,7 @@ export const FoodCard = () => {
   };
 
   return (
-    <div className="relative bg-white rounded-3xl overflow-hidden w-[397px] h-[342px]">
+    <div className="relative bg-white rounded-3xl overflow-hidden w-[397px] h-[342px] ">
       <img
         src="/food1.png"
         alt="food"
@@ -34,7 +34,8 @@ export const FoodCard = () => {
               bg-white shadow-lg
               flex items-center justify-center
               text-red-500 text-2xl font-bold
-              hover:scale-110 transition">
+              hover:scale-110 transition"
+          >
             +
           </button>
         </DialogTrigger>
@@ -42,7 +43,8 @@ export const FoodCard = () => {
         <DialogContent
           className="max-w-none
     w-[826px]
-    h-[412px] rounded-3xl">
+    h-[412px] rounded-3xl"
+        >
           <div className="flex gap-4 flex-row">
             <img
               src="/food1.png"
@@ -69,13 +71,15 @@ export const FoodCard = () => {
                   <div className="flex items-center  rounded-lg w-[121px] justify-center ">
                     <button
                       onClick={() => setCount(Math.max(1, count - 1))}
-                      className="px-3 py-1 border rounded-3xl">
+                      className="px-3 py-1 border rounded-3xl"
+                    >
                       -
                     </button>
                     <span className="px-4">{count}</span>
                     <button
                       onClick={() => setCount(count + 1)}
-                      className="px-3 py-1 border rounded-3xl">
+                      className="px-3 py-1 border rounded-3xl"
+                    >
                       +
                     </button>
                   </div>
@@ -89,13 +93,13 @@ export const FoodCard = () => {
       </Dialog>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="pr-5 pl-5 flex flex-col gap-2">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-red-500">Finger food</h2>
           <span className="text-xl font-bold">$12.99</span>
         </div>
 
-        <p className="text-gray-600 mt-2 text-sm">
+        <p className="text-gray-600  text-sm">
           Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.
         </p>
       </div>

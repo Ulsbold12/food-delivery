@@ -5,7 +5,7 @@ import { Marquee } from "./Marquee";
 
 export const Footer = () => {
   return (
-    <div className="w-screen h-[755px] bg-gray-900">
+    <div className="w-screen h-[755px] bg-gray-900 mt-[88px]">
       <Marquee />
       <div className="flex flex-row">
         <Logo1 />

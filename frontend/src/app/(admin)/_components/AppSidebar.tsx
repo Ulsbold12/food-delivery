@@ -28,7 +28,8 @@ export const AppSidebar = () => {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                className="lucide lucide-panels-top-left-icon lucide-panels-top-left">
+                className="lucide lucide-panels-top-left-icon lucide-panels-top-left"
+              >
                 <rect width="18" height="18" x="3" y="3" rx="2" />
                 <path d="M3 9h18" />
                 <path d="M9 21V9" />
@@ -46,7 +47,8 @@ export const AppSidebar = () => {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                className="lucide lucide-truck-icon lucide-truck">
+                className="lucide lucide-truck-icon lucide-truck"
+              >
                 <path
                   d="
                 M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"
