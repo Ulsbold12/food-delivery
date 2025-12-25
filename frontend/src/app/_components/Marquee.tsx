@@ -15,33 +15,33 @@ export function Marquee() {
         }
       `}</style>
 
-      <div className="overflow-hidden bg-red-500 py-4">
-        <div className="flex w-max animate-marquee">
-          <span className="mx-10 text-white text-xl font-semibold">
+      <div className="overflow-hidden bg-red-500 py-4 h-[92px] flex flex-col items-center justify-center mt-[60px]">
+        <div className="flex w-max animate-marquee ">
+          <span className="mx-10 text-white text-3xl font-semibold ">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
-          <span className="mx-10 text-white text-xl font-semibold">
+          <span className="mx-10 text-white text-3xl font-semibold">
             Fresh fast delivered
           </span>
         </div>
