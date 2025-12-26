@@ -39,21 +39,25 @@ import {
 const data: Payment[] = [
   {
     id: "m5gr84i9",
-    amount: 316,
+    Total: 316,
     status: "success",
-    email: "ken99@example.com",
+    custumer: "ken99@example.com",
     food: "beef steak",
-    address: "suhbaatar duureg 10-r bair",
+    DeliveryAddress: "suhbaatar duureg 10-r bair",
+    Date: "2024-1-2",
+    Deliverystate: "Pending",
   },
 ];
 
 export type Payment = {
   id: string;
-  amount: number;
+  Total: number;
   status: "pending" | "processing" | "success" | "failed";
-  email: string;
+  custumer: string;
   food: string;
-  address: string;
+  DeliveryAddress: string;
+  Date: string;
+  Deliverystate: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -80,41 +84,63 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
+    accessorKey: "№",
+    header: "№",
+    cell: ({ row }) => <div className="capitalize">{row.getValue("№")}</div>,
   },
   {
-    accessorKey: "email",
+    accessorKey: "custumer",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Email
+          custumer
           <ArrowUpDown />
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => (
+      <div className="lowercase">{row.getValue("custumer")}</div>
+    ),
   },
+
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
+    accessorKey: "food",
+    header: "food",
+    cell: ({ row }) => <div className="capitalize">{row.getValue("food")}</div>,
   },
+
+  {
+    accessorKey: "Date",
+    header: "Date",
+    cell: ({ row }) => <div className="capitalize">{row.getValue("Date")}</div>,
+  },
+
+  {
+    accessorKey: "Total",
+    header: "Total",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("Total")}</div>
+    ),
+  },
+
+  {
+    accessorKey: "DeliveryAddress",
+    header: "Delivery Address",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("DeliveryAddress")}</div>
+    ),
+  },
+
+  {
+    accessorKey: "status",
+    header: "Delivery states",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("status")}</div>
+    ),
+  },
+
   {
     id: "actions",
     enableHiding: false,
@@ -231,14 +257,12 @@ export function DataTable() {
         </div>
         <div className="space-x-2">
           <Button
-            variant="outline"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}>
             Previous
           </Button>
           <Button
-            variant="outline"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}>

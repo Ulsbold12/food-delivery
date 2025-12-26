@@ -5,5 +5,5 @@ import { DataTable } from "../_components/DataTable";
 import { Dishescategory } from "../_components/Dishescategory";
 
 export default function AdminPage() {
-  return <Dishescategory />;
+  return <DataTable />;
 }

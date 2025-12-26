@@ -19,17 +19,11 @@ export default function QuantityPicker() {
           <h2 className="text-lg font-medium">Хэдийг авах вэ?</h2>
 
           <div className="flex items-center justify-center gap-4">
-            <Button
-              variant="outline"
-              onClick={() => setCount(Math.max(1, count - 1))}>
-              -
-            </Button>
+            <Button onClick={() => setCount(Math.max(1, count - 1))}>-</Button>
 
             <span className="text-xl font-semibold">{count}</span>
 
-            <Button variant="outline" onClick={() => setCount(count + 1)}>
-              +
-            </Button>
+            <Button onClick={() => setCount(count + 1)}>+</Button>
           </div>
 
           <Button className="mt-4">Confirm ({count})</Button>

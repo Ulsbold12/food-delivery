@@ -29,10 +29,21 @@ export const Location = () => {
             <ChevronDownIcon />
           </Button>
         </DialogTrigger>
-        <DialogContent>
-          <h1 className="text-xl font-semibold">Add your Location</h1>
-          <Input placeholder="Enter address" />
-          <Button className="mt-4">Save</Button>
+        <DialogContent className="w-[502px] h-[288px] bg-white rounded-2xl ">
+          <div>
+            <h1 className="text-xl font-semibold">
+              Please write your delivery address!
+            </h1>
+            <Button></Button>
+          </div>
+          <Input
+            placeholder="Please share your complete address"
+            className="w-[454px] h-[80px] border rounded-2xl"
+          />
+          <div className="flex flex-row justify-end gap-2 ">
+            <Button className="border bg-white text-black ">Cancel</Button>
+            <Button className="bg-black text-white">Deliver Here</Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
