@@ -74,8 +74,7 @@ export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
           active === "cart"
             ? "bg-red-500 text-white"
             : "bg-white text-black border"
-        }
-      `}>
+        }`}>
               Cart
             </Button>
             <Button
@@ -86,17 +85,12 @@ export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
           active === "order"
             ? "bg-red-500 text-white"
             : "bg-white text-black border"
-        }
-      `}>
+        }`}>
               Order
             </Button>
           </div>
-          <CartContent />
-          <div className="mt-4 bg-white  rounded-2xl p-4">
-            <Button className="w-full mt-6 bg-red-500 rounded-full">
-              Checkout
-            </Button>
-          </div>
+          {active === "cart" && <CartContent />}
+          {active === "add" && <AddMenu />}
         </div>
       </SheetContent>
     </Sheet>

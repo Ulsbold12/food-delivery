@@ -108,7 +108,23 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "food",
     header: "food",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("food")}</div>,
+    cell: ({ row }) => (
+      <div className="flex flex-row gap-4 items-center">
+        <div className="capitalize">{row.getValue("food")}</div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">
+              <ChevronDown />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Delivered </DropdownMenuItem>
+            <DropdownMenuItem>Pending</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    ),
   },
 
   {
@@ -136,34 +152,23 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "status",
     header: "Delivery states",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-
-  {
-    id: "actions",
-    enableHiding: false,
     cell: ({ row }) => {
       const payment = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
+            <Button
+              variant="ghost"
+              className="h-[32px] w-[94px] border rounded-3xl bg-white text-black p-0">
+              <p>{row.getValue("status")}</p>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}>
-              Copy payment ID
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Delivered </DropdownMenuItem>
+            <DropdownMenuItem>Pending</DropdownMenuItem>
+            <DropdownMenuItem>Cancelled</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
