@@ -9,8 +9,13 @@ import {
 } from "@/components/ui/sidebar";
 import { useState } from "react";
 
-export const AppSidebar = () => {
-  const [activeView, setActiveView] = useState("table");
+type Props = {
+  active: "table" | "add";
+  setActive: (value: "table" | "add") => void;
+};
+
+export const AppSidebar = ({active, setActive} : Props) => {
+  
 
   return (
     <div className="h-screen">
@@ -22,7 +27,9 @@ export const AppSidebar = () => {
           <SidebarGroup className="flex flex-col gap-2 mt-8">
             <Button
               className="bg-white text-black"
-              onClick={() => setActiveView("table")}>
+              
+
+              onClick={() => setActive("table")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -42,7 +49,9 @@ export const AppSidebar = () => {
             </Button>
             <Button
               className="bg-white text-black"
-              onClick={() => setActiveView("add")}>
+              
+
+              onClick={() => setActive("add")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
