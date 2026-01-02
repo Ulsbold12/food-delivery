@@ -8,7 +8,7 @@ export default function Homepage() {
   return (
     <>
       <div className="bg-neutral-700 flex flex-col items-center">
-        <img src="/Image÷.png" className="w-[1440px] h-[570px] object-cover" />
+        <img src="/Image÷.png" className="w-screen h-[570px] object-cover" />
         <FoodSection />
         <FoodSection />
         <Footer />

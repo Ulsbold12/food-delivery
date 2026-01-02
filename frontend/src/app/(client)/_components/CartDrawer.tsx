@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { CartContent } from "./CartContent";
+import { AddMenu } from "./AddMenu";
 
 type CartDrawerProps = {
   open: boolean;

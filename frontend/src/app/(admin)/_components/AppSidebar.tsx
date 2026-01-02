@@ -7,6 +7,7 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 import { useState } from "react";
 
 type Props = {
@@ -45,7 +46,7 @@ export const AppSidebar = ({active, setActive} : Props) => {
                 <path d="M3 9h18" />
                 <path d="M9 21V9" />
               </svg>
-              Food menu
+              <Link href="/admin/Foodmenu">Food menu</Link>
             </Button>
             <Button
               className="bg-white text-black"
@@ -72,7 +73,7 @@ export const AppSidebar = ({active, setActive} : Props) => {
                 <circle cx="17" cy="18" r="2" />
                 <circle cx="7" cy="18" r="2" />
               </svg>
-              Orders
+             <Link href="/admin/Orders">Orders</Link>
             </Button>
           </SidebarGroup>
         </SidebarContent>
