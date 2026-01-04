@@ -1,12 +1,15 @@
-"use client"
+"use client";
 
-import { Orders } from "../../_components/Orders"
-
+import { AdminAvatar } from "../../_components/AdminAvatar";
+import { Orders } from "../../_components/Orders";
 
 export default function () {
-    return(
-        <div>
-          <Orders  />
-        </div>
-    )
+  return (
+    <div>
+      <div className="flex justify-end mt-4">
+        <AdminAvatar />
+      </div>
+      <Orders />
+    </div>
+  );
 }

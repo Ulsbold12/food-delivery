@@ -20,21 +20,21 @@ interface FoodCardProps {
 
 export const FoodCard = ({ item, onClick }: FoodCardProps) => {
   return (
-    <Card className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all duration-300 p-0 bg-white">
-      <div className="relative h-40 overflow-hidden group">
+    <Card className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all duration-300 p-0 bg-white w-[397px] h-[342px]">
+      <div className="relative h-40   flex justify-center mt-[16px] ">
         <img
           src={item.image}
           alt={item.name}
-          className="w-full h-full object-cover group-cover?:sclae-105 transition-transform duration-500"
+          className="w-[365px] h-[210px] object-cover rounded-2xl"
         />
         <Button
           size="icon"
-          className="absolute bottom-3 right-3 w-8 h-8 bg-white text-gray-900 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
+          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
           onClick={() => onClick(item)}>
-          <Plus className="h-4 w-4" />
+          <Plus className="h-[16px] w-[16px]" />
         </Button>
       </div>
-      <CardContent className="p-4">
+      <CardContent className="p-4 mt-10">
         <div className="flex justify-between items-start mb-1.5">
           <h4 className="text-red-500 font-bold text-base leading-tight">
             {item.name}
