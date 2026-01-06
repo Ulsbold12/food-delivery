@@ -5,6 +5,7 @@ import { Footer } from "../_components/footer";
 import { FoodCard, FoodItem } from "./_components/FoodCard";
 import { FoodGrid } from "./_components/FoodGrid";
 import { useCart } from "@/context/cart-context";
+import { CartDrawer } from "./_components/CartDrawer";
 
 const foodItems = [
   {
@@ -61,6 +62,13 @@ export default function Homepage() {
           title="Appetizers"
           items={foodItems}
           onItemClick={setSelectedFood}
+        />
+        <CartDrawer
+          {...({
+            food: selectedFood,
+            onClose: () => setSelectedFood(null),
+            onAddToCart: handleAddToCard,
+          } as any)}
         />
         <Footer />
       </div>

@@ -30,7 +30,13 @@ export const FoodCard = ({ item }: FoodCardProps) => {
           alt={item.name}
           className="w-[365px] h-[210px] object-cover rounded-2xl"
         />
-        <FoodDetailDailog food={item} onClose={}/>
+
+        <Button
+          size="icon"
+          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
+          onClick={() => addToCart(item)}>
+          <Plus className="h-[16px] w-[16px]" />
+        </Button>
       </div>
       <CardContent className="p-4 mt-10">
         <div className="flex justify-between items-start mb-1.5">

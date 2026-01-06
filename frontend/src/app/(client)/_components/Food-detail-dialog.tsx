@@ -37,14 +37,6 @@ export function FoodDetailDailog({
 
   return (
     <Dialog open={!food} onOpenChange={onClose}>
-      <DialogTrigger>
-        <Button
-          size="icon"
-          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
-          onClick={() => addToCart(food)}>
-          <Plus className="h-[16px] w-[16px]" />
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] p-0 gap-0">
         <Button
           size="icon"
