@@ -16,12 +16,13 @@ export type CartItem = Food & {
 };
 
 interface CartContextType {
-  cartitems: CartItem[];
+  cartItems: CartItem[];
   addToCart: (item: Food) => void;
   updateQuantity: (id: number, quantity: number) => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
   isCartOpen: boolean;
+  removeFromCart: (id: number) => void;
   setIsCartOpen: (open: boolean) => void;
 }
 
@@ -36,11 +37,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const existingItem = prevItems.find((i) => i.id === item.id);
       if (existingItem) {
         return prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : 1
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         );
       }
       return [...prevItems, { ...item, quantity: 1 }];
     });
+
+    
   };
 
   const removeFromCart = (id: number) => {
@@ -80,7 +83,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setIsCartOpen,
       }}>
       {children}
-      <CartDrawer />
     </CartContext.Provider>
   );
 }

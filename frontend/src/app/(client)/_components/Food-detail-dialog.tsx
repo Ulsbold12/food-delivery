@@ -5,7 +5,8 @@ import { FoodItem } from "./FoodCard";
 import { Dialog } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, X } from "lucide-react";
-import { DialogContent } from "@/components/ui/dialog";
+import { DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useCart } from "@/context/cart-context";
 
 interface FoodDetailDailogProps {
   food: FoodItem | null;
@@ -19,6 +20,7 @@ export function FoodDetailDailog({
   onAddToCart,
 }: FoodDetailDailogProps) {
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
   const getTotalPrice = () => {
     if (!food) return "$0,00";
@@ -35,6 +37,14 @@ export function FoodDetailDailog({
 
   return (
     <Dialog open={!food} onOpenChange={onClose}>
+      <DialogTrigger>
+        <Button
+          size="icon"
+          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
+          onClick={() => addToCart(food)}>
+          <Plus className="h-[16px] w-[16px]" />
+        </Button>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] p-0 gap-0">
         <Button
           size="icon"

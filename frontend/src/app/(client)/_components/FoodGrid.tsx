@@ -22,13 +22,3 @@ export function FoodGrid({ title, items, onItemClick }: FoodGridProps) {
     </div>
   );
 }
-
-const foodItems = [
-  {
-    id: 1,
-    name: "Finger food",
-    price: "$12,99",
-    Description: "lorem wmqkfiqienfq f qiengiqegeq gqekjieqgiqeng",
-    image: "/food1.png",
-  },
-];
