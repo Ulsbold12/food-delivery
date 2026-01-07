@@ -3,7 +3,7 @@
 import { CartProvider } from "@/context/cart-context";
 import { useState } from "react";
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex w-full">
       <CartProvider>{children}</CartProvider>
@@ -11,4 +11,4 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default AdminLayout;
+export default ClientLayout;

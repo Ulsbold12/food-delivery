@@ -2,7 +2,7 @@
 
 export const AddDishCard = () => {
   return (
-    <div className="relative h-[241px] w-[241px] rounded-2xl overflow-hidden">
+    <div className="relative h-[241px] w-[270px] rounded-2xl overflow-hidden">
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
         <rect
           x="1"

@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import FoodMenu from "../../_components/FoodMenu"
-import { Orders } from "../../_components/Orders"
-
+import { useEffect, useState } from "react";
+import FoodMenu from "../../_components/FoodMenu";
+import { Orders } from "../../_components/Orders";
 
 export default function () {
-    return(
-        <div>
-          <FoodMenu  />
-        </div>
-    )
+  return (
+    <div>
+      <FoodMenu />
+    </div>
+  );
 }

@@ -14,13 +14,9 @@ interface FoodDetailDailogProps {
   onAddToCart: (food: FoodItem, quantity: number) => void;
 }
 
-export function FoodDetailDailog({
-  food,
-  onClose,
-  onAddToCart,
-}: FoodDetailDailogProps) {
+export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
+  const { cartItems, setIsCartOpen, isCartOpen } = useCart();
 
   const getTotalPrice = () => {
     if (!food) return "$0,00";
@@ -36,31 +32,41 @@ export function FoodDetailDailog({
   };
 
   return (
-    <Dialog open={!food} onOpenChange={onClose}>
+    <Dialog open={isCartOpen} onOpenChange={() => setIsCartOpen(false)}>
+      <DialogTrigger>
+        <Button
+          size="icon"
+          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
+          onClick={() => {
+            setIsCartOpen(true);
+          }}>
+          <Plus className="h-[16px] w-[16px]" />
+        </Button>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] p-0 gap-0">
         <Button
           size="icon"
           className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md z-10 hover:bg-white h-8 w-8"
-          onClick={onClose}>
+          onClick={() => setIsCartOpen(false)}>
           <X className="h-3.5 w-3.5" />
         </Button>
 
-        {food && (
+        {cartItems.map((items) => (
           <div className="flex flex-col">
             <div className="relative h-56 w-full">
               <img
-                src={food.image}
-                alt={food.name}
+                src={items.image}
+                alt={items.name}
                 className="w-full h-full object-cover"
               />
             </div>
 
             <div className="p-5">
               <h2 className="text-xl font-bold text-red-500 mb-2">
-                {food.name}
+                {items.name}
               </h2>
               <p className="text-gray-600 text-xs mb-5 leading-relaxed">
-                {food.description}
+                {items.description}
               </p>
 
               <div className="space-y-3">
@@ -96,7 +102,7 @@ export function FoodDetailDailog({
               </div>
             </div>
           </div>
-        )}
+        ))}
       </DialogContent>
     </Dialog>
   );

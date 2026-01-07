@@ -42,8 +42,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prevItems, { ...item, quantity: 1 }];
     });
-
-    
   };
 
   const removeFromCart = (id: number) => {

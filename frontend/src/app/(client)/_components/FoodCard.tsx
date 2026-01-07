@@ -21,7 +21,8 @@ interface FoodCardProps {
 }
 
 export const FoodCard = ({ item }: FoodCardProps) => {
-  const { addToCart } = useCart();
+  const { addToCart, setIsCartOpen } = useCart();
+
   return (
     <Card className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all duration-300 p-0 bg-white w-[397px] h-[342px]">
       <div className="relative h-40   flex justify-center mt-[16px] ">
@@ -31,12 +32,7 @@ export const FoodCard = ({ item }: FoodCardProps) => {
           className="w-[365px] h-[210px] object-cover rounded-2xl"
         />
 
-        <Button
-          size="icon"
-          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
-          onClick={() => addToCart(item)}>
-          <Plus className="h-[16px] w-[16px]" />
-        </Button>
+        <FoodDetailDailog />
       </div>
       <CardContent className="p-4 mt-10">
         <div className="flex justify-between items-start mb-1.5">

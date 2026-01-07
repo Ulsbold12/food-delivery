@@ -6,6 +6,7 @@ import { FoodCard, FoodItem } from "./_components/FoodCard";
 import { FoodGrid } from "./_components/FoodGrid";
 import { useCart } from "@/context/cart-context";
 import { CartDrawer } from "./_components/CartDrawer";
+import { FoodDetailDailog } from "./_components/Food-detail-dialog";
 
 const foodItems = [
   {
@@ -63,13 +64,7 @@ export default function Homepage() {
           items={foodItems}
           onItemClick={setSelectedFood}
         />
-        <CartDrawer
-          {...({
-            food: selectedFood,
-            onClose: () => setSelectedFood(null),
-            onAddToCart: handleAddToCard,
-          } as any)}
-        />
+
         <Footer />
       </div>
     </>
