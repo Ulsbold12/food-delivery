@@ -4,6 +4,6 @@ import { getFoods } from "../controllers/food/get-foods.ts";
 
 const FoodRouter = Router();
 
-FoodRouter.get("/", getFoods).post("/", createFood);
+FoodRouter.get("/", getFoods).post("/create", createFood);
 
 export { FoodRouter };
