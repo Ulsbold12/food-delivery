@@ -21,7 +21,7 @@ interface FoodCardProps {
 }
 
 export const FoodCard = ({ item }: FoodCardProps) => {
-  const { addToCart, setIsCartOpen } = useCart();
+  const { addToCart } = useCart();
 
   return (
     <Card className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all duration-300 p-0 bg-white w-[397px] h-[342px]">
@@ -32,7 +32,7 @@ export const FoodCard = ({ item }: FoodCardProps) => {
           className="w-[365px] h-[210px] object-cover rounded-2xl"
         />
 
-        <FoodDetailDailog />
+        <FoodDetailDailog food={item} />
       </div>
       <CardContent className="p-4 mt-10">
         <div className="flex justify-between items-start mb-1.5">

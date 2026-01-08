@@ -53,7 +53,7 @@ export default function Homepage() {
   const handleAddToCard = (food: FoodItem, quantity: number) => {
     for (let i = 0; i < quantity; i++) addToCart(food);
     setSelectedFood(null);
-    toast.success("Food is being addded to the cart!");
+    // toast.success("Food is being addded to the cart!");
   };
   return (
     <>

@@ -21,9 +21,7 @@ interface CartContextType {
   updateQuantity: (id: number, quantity: number) => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
-  isCartOpen: boolean;
   removeFromCart: (id: number) => void;
-  setIsCartOpen: (open: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType>({} as CartContextType);
@@ -77,9 +75,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         updateQuantity,
         getTotalItems,
         getTotalPrice,
-        isCartOpen,
-        setIsCartOpen,
-      }}>
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
