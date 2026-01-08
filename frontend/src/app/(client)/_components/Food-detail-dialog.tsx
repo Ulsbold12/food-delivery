@@ -33,19 +33,16 @@ export function FoodDetailDailog({ food }: FoodDetailDailogProps) {
       <DialogTrigger>
         <Button
           size="icon"
-          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all"
-        >
+          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all">
           <Plus className="h-[16px] w-[16px]" />
         </Button>
       </DialogTrigger>
       <DialogContent
         className="sm:max-w-[826px] h-[412px]  
-      "
-      >
+      ">
         <Button
           size="icon"
-          className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md z-10 hover:bg-white h-8 w-8"
-        >
+          className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md z-10 hover:bg-white h-8 w-8">
           <X className="h-3.5 w-3.5" />
         </Button>
 
@@ -78,8 +75,7 @@ export function FoodDetailDailog({ food }: FoodDetailDailogProps) {
                     <Button
                       size="icon"
                       className="h-7 w-7 rounded-full hover:bg-white"
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    >
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}>
                       <Minus className="h-3 w-3" />
                     </Button>
                     <span className="text-base font-semibold min-w-[24px] text-center">
@@ -88,8 +84,7 @@ export function FoodDetailDailog({ food }: FoodDetailDailogProps) {
                     <Button
                       size="icon"
                       className="h-7 w-7 rounded-full hover:bg-white"
-                      onClick={() => setQuantity(quantity + 1)}
-                    >
+                      onClick={() => setQuantity(quantity + 1)}>
                       <Plus className="h-3 w-3" />
                     </Button>
                   </div>
@@ -103,8 +98,7 @@ export function FoodDetailDailog({ food }: FoodDetailDailogProps) {
 
               <Button
                 className="w-full bg-gray-900  text-white hover:bg-gray-800  py-5 rounded-full text-sm font-semibold shadow-md"
-                onClick={() => {}}
-              >
+                onClick={() => {}}>
                 Add to cart
               </Button>
             </div>

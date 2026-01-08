@@ -15,9 +15,7 @@ type Props = {
   setActive: (value: "table" | "add") => void;
 };
 
-export const AppSidebar = ({active, setActive} : Props) => {
-  
-
+export const AppSidebar = ({ active, setActive }: Props) => {
   return (
     <div className="h-screen">
       <Sidebar>
@@ -27,9 +25,7 @@ export const AppSidebar = ({active, setActive} : Props) => {
         <SidebarContent>
           <SidebarGroup className="flex flex-col gap-2 mt-8">
             <Button
-              className="bg-white text-black"
-              
-
+              className="bg-white text-black hover:bg-black hover:text-white"
               onClick={() => setActive("table")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,8 +46,6 @@ export const AppSidebar = ({active, setActive} : Props) => {
             </Button>
             <Button
               className="bg-white text-black"
-              
-
               onClick={() => setActive("add")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +67,7 @@ export const AppSidebar = ({active, setActive} : Props) => {
                 <circle cx="17" cy="18" r="2" />
                 <circle cx="7" cy="18" r="2" />
               </svg>
-             <Link href="/admin/Orders">Orders</Link>
+              <Link href="/admin/Orders">Orders</Link>
             </Button>
           </SidebarGroup>
         </SidebarContent>
