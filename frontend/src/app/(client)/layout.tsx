@@ -2,13 +2,10 @@
 
 import { CartProvider } from "@/context/cart-context";
 import { useState } from "react";
+import { Headerwrapper } from "../_components/Headerwrapper";
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex w-full">
-      <CartProvider>{children}</CartProvider>
-    </div>
-  );
+  return <CartProvider>{children}</CartProvider>;
 };
 
 export default ClientLayout;

@@ -9,11 +9,7 @@ export const Logo1 = () => {
           <p className="text-white font-bold text-lg">Nom</p>
           <p className="text-red-500 font-bold text-lg">Nom</p>
         </div>
-        <p
-          className="text-white font-normall text-xs 
-        ">
-          Swift delivery
-        </p>
+        <p className="text-white font-normall text-xs">Swift delivery</p>
       </div>
     </div>
   );

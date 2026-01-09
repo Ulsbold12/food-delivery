@@ -13,74 +13,51 @@ import { CartContent } from "./CartContent";
 import { AddMenu } from "./AddMenu";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/cart-context";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
 export const CartDrawer = () => {
-  const { cartItems, removerFromCart, updateQuantity, getTotalPrice } =
+  const { cartItems, removeFromCart, updateQuantity, getTotalPrice } =
     useCart();
-  const [active, setActive] = useState("cart");
+
+  const subtotal = getTotalPrice();
+  const shipping = 0.99;
+  const total = subtotal + shipping;
 
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger asChild>
         <Button
           size="icon"
           className="w-9 h-9 bg-red-500 rounded-full hover:bg-red-600 relative transition-all shadow-md">
           <ShoppingCart className="h-4 w-4 text-white" />
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side="right"
-        className="w-[564px]  h-screen p-0 bg-neutral-700 rounded-2xl">
-        <div className=" h-full p-4 rounded-l-3xl">
-          <SheetHeader>
-            <SheetTitle className="text-white text-lg flex flex-row gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                className="lucide lucide-shopping-cart-icon lucide-shopping-cart">
-                <circle cx="8" cy="21" r="1" />
-                <circle cx="19" cy="21" r="1" />
-                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-              </svg>
-              Order detail
-            </SheetTitle>
-          </SheetHeader>
+      <Tabs defaultValue="cart" className="flex-1 flex flex-col">
+        <TabsList className="w-full rounded-none border-b bg-transparent p-0">
+          <TabsTrigger
+            value="cart"
+            className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
+            Cart
+          </TabsTrigger>
+          <TabsTrigger
+            value="order"
+            className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
+            Order
+          </TabsTrigger>
+        </TabsList>
 
-          <div className="bg-white w-[351px] h-[36px] rounded-2xl p-0.2 flex flex-row">
-            <Button
-              onClick={() => setActive("cart")}
-              className={`
-         w-[175px] bg-white rounded-2xl text-black rounded-full transition
-        ${
-          active === "cart"
-            ? "bg-red-500 text-white"
-            : "bg-white text-black border"
-        }`}>
-              Cart
-            </Button>
-            <Button
-              onClick={() => setActive("order")}
-              className={`
-         w-[175px] bg-white rounded-2xl text-black rounded-full transition
-        ${
-          active === "order"
-            ? "bg-red-500 text-white"
-            : "bg-white text-black border"
-        }`}>
-              Order
-            </Button>
-          </div>
-          {active === "cart" && <CartContent />}
-          {active === "add" && <AddMenu />}
-        </div>
-      </SheetContent>
+        <TabsContent value="cart" className="flex-1 flex flex-col mt-0">
+          <CartContent
+            cartItems={cartItems}
+            subtotal={subtotal}
+            shipping={shipping}
+            total={total}
+            onUpdateQuantity={updateQuantity}
+            onRemoveFromCart={removeFromCart}
+          />
+        </TabsContent>
+      </Tabs>
     </Sheet>
   );
 };

@@ -9,7 +9,7 @@ export const Location = () => {
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button className="bg-white text-red">
             <svg
               xmlns="http://www.w3.org/2000/svg"
