@@ -32,7 +32,7 @@ export const FoodCard = ({ item }: FoodCardProps) => {
           className="w-[365px] h-[210px] object-cover rounded-2xl"
         />
 
-        <FoodDetailDailog food={item} />
+        <FoodDetailDailog food={item} onAddToCart={true} />
       </div>
       <CardContent className="p-4 mt-10">
         <div className="flex justify-between items-start mb-1.5">

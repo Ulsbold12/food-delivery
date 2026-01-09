@@ -21,12 +21,12 @@ export function FoodDetailDailog({ food }: FoodDetailDailogProps) {
     return `$${(price * quantity).toFixed(2)}`;
   };
 
-  // const handleAddToCart = () => {
-  //   if (food) {
-  //     addToCart(food, quantity);
-  //     setQuantity(1);
-  //   }
-  // };
+  const handleAddToCart = () => {
+    if (food) {
+      addToCart(food, quantity);
+      setQuantity(1);
+    }
+  };
 
   return (
     <Dialog>
@@ -88,17 +88,14 @@ export function FoodDetailDailog({ food }: FoodDetailDailogProps) {
                       <Plus className="h-3 w-3" />
                     </Button>
                   </div>
-                  {/* <span className="text-xl font-bold">
-                    {" "}
-                    ene bol total price
-                  </span> */}
+
                   <span className="text-xl font-bold">{getTotalPrice()}</span>
                 </div>
               </div>
 
               <Button
                 className="w-full bg-gray-900  text-white hover:bg-gray-800  py-5 rounded-full text-sm font-semibold shadow-md"
-                onClick={() => {}}>
+                onClick={handleAddToCart}>
                 Add to cart
               </Button>
             </div>

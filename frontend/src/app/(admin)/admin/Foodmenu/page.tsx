@@ -6,7 +6,7 @@ import { Orders } from "../../_components/Orders";
 
 export default function () {
   return (
-    <div>
+    <div className="">
       <FoodMenu />
     </div>
   );

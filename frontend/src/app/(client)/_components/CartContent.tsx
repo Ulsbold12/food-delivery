@@ -2,40 +2,68 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { EmpthyCart } from "./EmptyCart";
+import { CartItem } from "./CartItem";
+import { DeliveryLocation } from "./DeliveryLocation";
+import { PaymentSummary } from "./PaymentSummary";
 
-export const CartContent = () => {
+interface CartContentProps {
+  cartItems: CartItemType[];
+  subtotal: number;
+  shipping: number;
+  total: number;
+  onUpdateQuantity: (id: number, quantity: number) => void;
+  onRemoveFromCart: (id: number) => void;
+}
+
+export const CartContent = ({
+  cartItems,
+  subtotal,
+  shipping,
+  total,
+  onUpdateQuantity,
+  onRemoveFromCart,
+}: CartContentProps) => {
   const [count, setCount] = useState(1);
   return (
     <>
-      <div className="mt-4 bg-white rounded-2xl p-4">
-        <h3 className="font-semibold mb-3">My cart</h3>
-        <div className="flex gap-3 items-start">
-          <img src="/food1.png" className="w-20 h-20 rounded-xl object-cover" />
-          <div className="flex-1">
-            <p className="font-semibold text-red-500">Sunshine Stackers</p>
-            <p className="text-xs text-gray-500">
-              Fluffy pancakes stacked with fruits...
-            </p>
+      <div className="flex-1 overflow-auto px-6 py-4">
+        <h3 className="text-lg font-semibold mb-4">My cart</h3>
 
-            <div className="flex items-center gap-3 mt-2">
-              <button onClick={() => setCount(Math.max(1, count - 1))}>
-                -
-              </button>
-              <span>{count}</span>
-              <button onClick={() => setCount(Math.max(1, count + 1))}>
-                +
-              </button>
-            </div>
+        {cartItems.length === 0 ? (
+          <EmpthyCart />
+        ) : (
+          <div className="space-y-4">
+            {cartItems.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                onUpdateQuantity={onUpdateQuantity}
+                onRemove={onRemoveFromCart}
+              />
+            ))}
           </div>
+        )}
 
-          <span className="font-semibold">$12.99</span>
+        {cartItems.length > 0 && (
+          <>
+            <DeliveryLocation />
+            <PaymentSummary
+              subtotal={subtotal}
+              shipping={shipping}
+              total={total}
+            />
+          </>
+        )}
+      </div>
+
+      {cartItems.length > 0 && (
+        <div className="mt-4 bg-white  rounded-2xl p-4">
+          <Button className="w-full mt-6 bg-red-500 rounded-full text-white">
+            Checkout
+          </Button>
         </div>
-      </div>
-      <div className="mt-4 bg-white  rounded-2xl p-4">
-        <Button className="w-full mt-6 bg-red-500 rounded-full text-white">
-          Checkout
-        </Button>
-      </div>
+      )}
     </>
   );
 };
