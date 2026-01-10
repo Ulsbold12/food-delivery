@@ -10,14 +10,14 @@ export const Header1 = () => {
     <div className="w-screen h-[68px] bg-black flex justify-between items-center">
       <Logo1 />
 
-      <div className="flex gap-2 mr-8 border border-black">
+      <div className="flex gap-2 mr-8 ">
         <Location />
 
         <Button className="bg-red-500 w-[36px] h-[36px] rounded-full flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="10"
-            height="10"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="white"

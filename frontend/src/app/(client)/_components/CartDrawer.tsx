@@ -8,13 +8,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+
 import { CartContent } from "./CartContent";
-import { AddMenu } from "./AddMenu";
+
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/cart-context";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const CartDrawer = () => {
   const { cartItems, removeFromCart, updateQuantity, getTotalPrice } =
@@ -26,7 +25,7 @@ export const CartDrawer = () => {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger>
         <Button
           size="icon"
           className="w-9 h-9 bg-red-500 rounded-full hover:bg-red-600 relative transition-all shadow-md">
