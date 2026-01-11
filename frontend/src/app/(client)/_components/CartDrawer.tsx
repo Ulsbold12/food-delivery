@@ -32,31 +32,33 @@ export const CartDrawer = () => {
           <ShoppingCart className="h-4 w-4 text-white" />
         </Button>
       </SheetTrigger>
-      <Tabs defaultValue="cart" className="flex-1 flex flex-col">
-        <TabsList className="w-full rounded-none border-b bg-transparent p-0">
-          <TabsTrigger
-            value="cart"
-            className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
-            Cart
-          </TabsTrigger>
-          <TabsTrigger
-            value="order"
-            className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
-            Order
-          </TabsTrigger>
-        </TabsList>
+      <SheetContent>
+        <Tabs defaultValue="cart" className="flex-1 flex flex-col">
+          <TabsList className="w-full rounded-none border-b bg-transparent p-0">
+            <TabsTrigger
+              value="cart"
+              className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
+              Cart
+            </TabsTrigger>
+            <TabsTrigger
+              value="order"
+              className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
+              Order
+            </TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="cart" className="flex-1 flex flex-col mt-0">
-          <CartContent
-            cartItems={cartItems}
-            subtotal={subtotal}
-            shipping={shipping}
-            total={total}
-            onUpdateQuantity={updateQuantity}
-            onRemoveFromCart={removeFromCart}
-          />
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="cart" className="flex-1 flex flex-col mt-0">
+            <CartContent
+              cartItems={cartItems}
+              subtotal={subtotal}
+              shipping={shipping}
+              total={total}
+              onUpdateQuantity={updateQuantity}
+              onRemoveFromCart={removeFromCart}
+            />
+          </TabsContent>
+        </Tabs>
+      </SheetContent>
     </Sheet>
   );
 };
