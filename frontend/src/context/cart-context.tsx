@@ -77,6 +77,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         getTotalPrice,
       }}>
       {children}
+      <CartDrawer />
     </CartContext.Provider>
   );
 }

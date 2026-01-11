@@ -57,6 +57,14 @@ export const CartDrawer = () => {
               onRemoveFromCart={removeFromCart}
             />
           </TabsContent>
+
+          <TabsContent
+            value="order"
+            className="fllex-1 overflow-auto px-6 py-4 mt-0">
+            <div className="flex flex-col items-center justify-center py-12 text-gray-500">
+              <p>No orders yet</p>
+            </div>
+          </TabsContent>
         </Tabs>
       </SheetContent>
     </Sheet>
