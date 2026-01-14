@@ -1,5 +1,7 @@
 "use client";
 
+import { AddCards } from "./AddCards";
+
 export const AddDishCard = () => {
   return (
     <div className="relative h-[241px] w-[270px] rounded-2xl overflow-hidden">
@@ -19,9 +21,7 @@ export const AddDishCard = () => {
       </svg>
 
       <div className="h-full flex flex-col items-center justify-center">
-        <button className="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center text-xl">
-          +
-        </button>
+        <AddCards />
         <p className="mt-3 font-medium">Add new Dish to Salads </p>
       </div>
     </div>

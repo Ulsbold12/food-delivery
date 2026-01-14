@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { EmpthyCart } from "./EmptyCart";
 import { CartItem } from "./CartItem";
+import type { CartItemType } from "./CartItem";
 import { DeliveryLocation } from "./DeliveryLocation";
 import { PaymentSummary } from "./PaymentSummary";
 
