@@ -7,9 +7,17 @@ interface FoodGridProps {
   title: string;
   items: FoodItem[];
   onAddToCart: (food: FoodItem, quantity: number) => void;
+  categoryName: string;
+  categoryId: string;
 }
 
-export function FoodGrid({ title, items, onAddToCart }: FoodGridProps) {
+export function FoodGrid({
+  title,
+  items,
+  onAddToCart,
+  categoryId,
+  categoryName,
+}: FoodGridProps) {
   return (
     <div className="px-8 py-8">
       <h3 className="text-white text-2xl font-bold mb-6">{title}</h3>
