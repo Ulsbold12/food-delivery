@@ -16,5 +16,3 @@ const foodSchema = new Schema(
 );
 
 export const FoodModel = model("Food", foodSchema);
-
-
