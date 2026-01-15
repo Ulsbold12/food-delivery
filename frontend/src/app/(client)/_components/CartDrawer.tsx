@@ -19,13 +19,15 @@ export const CartDrawer = () => {
   const { cartItems, removeFromCart, updateQuantity, getTotalPrice } =
     useCart();
 
+  console.log(cartItems);
+
   const subtotal = getTotalPrice();
   const shipping = 0.99;
   const total = subtotal + shipping;
 
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger asChild>
         <Button
           size="icon"
           className="w-9 h-9 bg-red-500 rounded-full hover:bg-red-600 relative transition-all shadow-md">
@@ -60,7 +62,7 @@ export const CartDrawer = () => {
 
           <TabsContent
             value="order"
-            className="fllex-1 overflow-auto px-6 py-4 mt-0">
+            className="flex-1 overflow-auto px-6 py-4 mt-0">
             <div className="flex flex-col items-center justify-center py-12 text-gray-500">
               <p>No orders yet</p>
             </div>

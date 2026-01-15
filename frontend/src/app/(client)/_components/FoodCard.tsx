@@ -8,11 +8,12 @@ import { useCart } from "@/context/cart-context";
 import { FoodDetailDailog } from "./Food-detail-dialog";
 
 export interface FoodItem {
-  id: number;
+  _id: number;
   name: string;
-  price: string;
-  description: string;
+  price: number;
+  ingredients: string;
   image: string;
+  categoryId: { _id: string; name: string }[];
 }
 
 interface FoodCardProps {
@@ -23,11 +24,11 @@ interface FoodCardProps {
 export const FoodCard = ({ item, onAddToCart }: FoodCardProps) => {
   return (
     <Card className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all duration-300 p-0 bg-white w-[397px] h-[342px]">
-      <div className="relative h-40   flex justify-center mt-[16px] ">
+      <div className="relative h-40   flex justify-center mt-4 ">
         <img
           src={item.image}
           alt={item.name}
-          className="w-[365px] h-[210px] object-cover rounded-2xl"
+          className="w-91.25 h-52.5 object-cover rounded-2xl"
         />
 
         <FoodDetailDailog food={item} onAddToCart={onAddToCart} />
@@ -42,7 +43,7 @@ export const FoodCard = ({ item, onAddToCart }: FoodCardProps) => {
           </span>
         </div>
         <p className="text-gray-600 text-xs leading-relaxed line-clamp-2">
-          {item.description}
+          {item.ingredients}
         </p>
       </CardContent>
     </Card>

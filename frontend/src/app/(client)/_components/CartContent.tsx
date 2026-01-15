@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { EmpthyCart } from "./EmptyCart";
-import { CartItem } from "./CartItem";
-import type { CartItemType } from "./CartItem";
+import { CartItem as CartItemType } from "@/context/cart-context";
 import { DeliveryLocation } from "./DeliveryLocation";
 import { PaymentSummary } from "./PaymentSummary";
+import { CartItem } from "./CartItem";
 
 interface CartContentProps {
   cartItems: CartItemType[];
@@ -26,6 +26,9 @@ export const CartContent = ({
   onRemoveFromCart,
 }: CartContentProps) => {
   const [count, setCount] = useState(1);
+
+  console.log({ cartItems });
+
   return (
     <>
       <div className="flex-1 overflow-auto px-6 py-4">
@@ -37,7 +40,7 @@ export const CartContent = ({
           <div className="space-y-4">
             {cartItems.map((item) => (
               <CartItem
-                key={item.id}
+                key={item._id}
                 item={item}
                 onUpdateQuantity={onUpdateQuantity}
                 onRemove={onRemoveFromCart}

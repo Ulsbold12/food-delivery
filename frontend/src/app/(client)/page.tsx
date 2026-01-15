@@ -7,15 +7,19 @@ import { FoodGrid } from "./_components/FoodGrid";
 import { useCart } from "@/context/cart-context";
 import { CartDrawer } from "./_components/CartDrawer";
 import { FoodDetailDailog } from "./_components/Food-detail-dialog";
+import { api } from "@/lib/axios";
 
 export type FoodGridType = {
-  id: number;
-  title: string;
+  categoryId: string;
+  categoryName: string;
+};
+
+type Category = {
+  _id: string;
+  name: string;
 };
 
 export default function Homepage() {
-  const { addToCart, setIsCartOpen, getTotalItems } = useCart();
-  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -25,17 +29,12 @@ export default function Homepage() {
     };
 
     fetchCategories();
-  });
+  }, []);
 
-  const handleAddToCard = (food: FoodItem, quantity: number) => {
-    for (let i = 0; i < quantity; i++) addToCart(food);
-    setSelectedFood(null);
-    // toast.success("Food is being addded to the cart!");
-  };
   return (
     <>
       <div className="bg-neutral-700 flex flex-col items-center">
-        <img src="/Image÷.png" className="w-screen h-[570px] object-cover" />
+        <img src="/Image÷.png" className="w-screen h-142.5 object-cover" />
         {categories.map((el) => (
           <FoodGrid key={el._id} categoryId={el._id} categoryName={el.name} />
         ))}

@@ -4,7 +4,12 @@ import { useState } from "react";
 import { FoodItem } from "./FoodCard";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, X } from "lucide-react";
-import { DialogContent, DialogTrigger, Dialog } from "@/components/ui/dialog";
+import {
+  DialogContent,
+  DialogTrigger,
+  Dialog,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useCart } from "@/context/cart-context";
 
 interface FoodDetailDailogProps {
@@ -15,31 +20,31 @@ interface FoodDetailDailogProps {
 export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
   const [quantity, setQuantity] = useState(1);
 
-  const getTotalPrice = () => {
-    if (!food) return "$0,00";
-    const price = parseFloat(food.price.replace("$", ""));
-    return `$${(price * quantity).toFixed(2)}`;
-  };
+  // const getTotalPrice = () => {
+  //   if (!food) return "$0,00";
+  //   const price = parseFloat(food.price.replace("$", ""));
+  //   return `$${(price * quantity).toFixed(2)}`;
+  // };
 
-  const handleAddToCart = () => {
-    if (food) {
-      onAddToCart(food, quantity);
-      setQuantity(1);
-    }
+  const handleAddToCard = (food: FoodItem, quantity: number) => {
+    onAddToCart(food, quantity);
+    setQuantity(1);
+    // toast.success("Food is being addded to the cart!");
   };
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button
           size="icon"
-          className="absolute top-40 right-6 w-[44px] h-[44px] bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all">
-          <Plus className="h-[16px] w-[16px]" />
+          className="absolute top-40 right-6 w-11 h-11 bg-white text-red-500 rounded-full shadow-md hover:bg-red-500 hover:text-white hover:shadow-lg transition-all">
+          <Plus className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-[826px] h-[412px]  
+        className="sm:max-w-206.5 h-103  
       ">
+        <DialogTitle></DialogTitle>
         <Button
           size="icon"
           className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md z-10 hover:bg-white h-8 w-8">
@@ -48,7 +53,7 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
 
         {food && (
           <div className="flex flex-row">
-            <div className="relative h-[364px] w-[377px] ">
+            <div className="relative h-91 w-94.25 ">
               <img
                 src={food.image}
                 alt={food.name}
@@ -62,7 +67,7 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
                   {food.name}
                 </h2>
                 <p className="text-gray-600 text-xl mb-5 leading-relaxed">
-                  {food.description}
+                  {food.ingredients}
                 </p>
               </div>
 
@@ -79,7 +84,7 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
                         onClick={() => setQuantity(Math.max(1, quantity - 1))}>
                         <Minus className="h-3 w-3" />
                       </Button>
-                      <span className="text-base font-semibold min-w-[24px] text-center">
+                      <span className="text-base font-semibold min-w-6 text-center">
                         {quantity}
                       </span>
                       <Button
@@ -90,13 +95,13 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
                       </Button>
                     </div>
 
-                    <span className="text-xl font-bold">{getTotalPrice()}</span>
+                    <span className="text-xl font-bold"></span>
                   </div>
                 </div>
 
                 <Button
                   className="w-full bg-gray-900  text-white hover:bg-gray-800  py-5 rounded-full text-sm font-semibold shadow-md"
-                  onClick={handleAddToCart}>
+                  onClick={() => handleAddToCard(food, quantity)}>
                   Add to cart
                 </Button>
               </div>
