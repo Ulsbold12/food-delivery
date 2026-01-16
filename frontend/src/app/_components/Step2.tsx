@@ -38,7 +38,7 @@ export default function Step2({ next, prev }: Step2Props) {
   const onSubmit = () => next();
 
   return (
-    <Card className="w-[420px] border-none shadow-none">
+    <Card className="w-105 border-none shadow-none">
       <CardHeader className="space-y-2">
         <h1 className="text-3xl font-bold">Create a strong password</h1>
         <p className="text-gray-400">
