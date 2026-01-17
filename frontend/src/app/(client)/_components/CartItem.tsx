@@ -27,16 +27,16 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
           <div className="flex items-center gap-2 border rounded-md">
             <Button
               size="icon"
-              className="h-7 w-7"
+              className="h-7 w-7 bg-white text-black"
               onClick={() => onUpdateQuantity(item._id, item.quantity - 1)}>
-              <Minus size="icon" className="h-7 w-7" />
+              <Minus size="icon" className="h-7 w-7 " />
             </Button>
             <span className="text-sm font-medium min-w-[20px] text-center">
               {item.quantity}
             </span>
             <Button
               size="icon"
-              className="h-7 w-7"
+              className="h-7 w-7 bg-white text-black"
               onClick={() => onUpdateQuantity(item._id, item.quantity + 1)}>
               <Plus className="h-3 w-3" />
             </Button>
@@ -46,9 +46,9 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
       </div>
       <Button
         size="icon"
-        className="absolute top-2 right-2 h-6 w-6 rounded-full hover:bg-red-100"
+        className="absolute top-2 right-2 h-6 w-6 rounded-full hover:bg-red-100 bg-white border border-red-500"
         onClick={() => onRemove(item._id)}>
-        <X className="h-3 w-3 text-red-500" />
+        <X className="h-3 w-3 text-red-500 " />
       </Button>
     </div>
   );

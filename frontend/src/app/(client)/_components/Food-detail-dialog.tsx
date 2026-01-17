@@ -20,11 +20,11 @@ interface FoodDetailDailogProps {
 export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
   const [quantity, setQuantity] = useState(1);
 
-  // const getTotalPrice = () => {
-  //   if (!food) return "$0,00";
-  //   const price = parseFloat(food.price.replace("$", ""));
-  //   return `$${(price * quantity).toFixed(2)}`;
-  // };
+  const getTotalPrice = () => {
+    if (!food) return "$0,00";
+    const price = food.price;
+    return `$${(price * quantity).toFixed(2)}`;
+  };
 
   const handleAddToCard = (food: FoodItem, quantity: number) => {
     onAddToCart(food, quantity);
@@ -71,27 +71,30 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
                 </p>
               </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center justify-center">
-                  <span className="text-gray-700 font-medium text-sm">
-                    Total price
-                  </span>
-                  <div className="flex items-center gap-30">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-50 ">
+                  <div className="flex flex-col">
+                    <span className="text-gray-700 font-medium text-sm">
+                      Total price
+                    </span>
+                    <span></span>
+                  </div>
+                  <div className="flex items-center ">
                     <div className="flex items-center gap-2 border rounded-full px-1.5 bg-gray-50">
                       <Button
                         size="icon"
-                        className="h-7 w-7 rounded-full hover:bg-white"
+                        className="h-11 w-11 rounded-full bg-white border border-black"
                         onClick={() => setQuantity(Math.max(1, quantity - 1))}>
-                        <Minus className="h-3 w-3" />
+                        <Minus className="h-3 w-3 text-black" />
                       </Button>
                       <span className="text-base font-semibold min-w-6 text-center">
                         {quantity}
                       </span>
                       <Button
                         size="icon"
-                        className="h-7 w-7 rounded-full hover:bg-white"
+                        className="h-11 w-11 rounded-full bg-white border border-black "
                         onClick={() => setQuantity(quantity + 1)}>
-                        <Plus className="h-3 w-3" />
+                        <Plus className="h-3 w-3 text-black" />
                       </Button>
                     </div>
 
@@ -100,7 +103,7 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
                 </div>
 
                 <Button
-                  className="w-full bg-gray-900  text-white hover:bg-gray-800  py-5 rounded-full text-sm font-semibold shadow-md"
+                  className=" w-[377px] h-[44px] bg-gray-900  text-white hover:bg-gray-800  py-5 rounded-full text-sm font-semibold shadow-md"
                   onClick={() => handleAddToCard(food, quantity)}>
                   Add to cart
                 </Button>

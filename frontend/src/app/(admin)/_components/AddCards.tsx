@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Form,
@@ -15,12 +16,13 @@ const schema = z.object({
   name: z.string(),
   price: z.string(),
   ingredients: z.string(),
+  image: z.string(),
 });
 
 export const AddCards = () => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", price: "", ingredients: "" },
+    defaultValues: { name: "", price: "", ingredients: "", image: "" },
   });
   return (
     <Dialog>
@@ -39,57 +41,81 @@ export const AddCards = () => {
         <h2 className="text-lg font-semibold">Add new Dish to Appetizers</h2>
         <Form {...form}>
           <form>
-            <div className="flex flex-row gap-10">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold ">Food name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="hoolnii ner bichne"
-                        className="h-12"
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+            <div className="">
+              <div className="flex flex-row gap-10 ">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold ">Food name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="hoolnii ner bichne"
+                          className="h-12"
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
 
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold ">Food price</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="hoolnii une bichne"
+                          className="h-12"
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
-                name="price"
+                name="ingredients"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-bold ">Food price</FormLabel>
+                    <FormLabel className="font-bold ">Ingredients</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         placeholder="hoolnii une bichne"
-                        className="h-12"
+                        className="w-[412px] h-[90px]"
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem className="w-[412px] h-[160px]  ">
+                    <FormLabel className="font-bold">Food Image</FormLabel>
+                    <FormControl className="">
+                      <Input
+                        type="file"
+                        {...field}
+                        placeholder="image"
+                        className="w-[412px] h-[138px] border border-black "
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <div className="flex justify-end">
+                <Button className="bg-black w-[93px] h-[40px] ">
+                  Add dish
+                </Button>
+              </div>
             </div>
-            <FormField
-              control={form.control}
-              name="ingredients"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-bold ">Ingredients</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="hoolnii une bichne"
-                      className="h-12"
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
           </form>
         </Form>
       </DialogContent>

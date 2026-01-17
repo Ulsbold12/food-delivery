@@ -1,5 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 export type category = {
@@ -25,12 +26,12 @@ export const Dishescategory = () => {
         {categorys.map((c) => {
           return (
             <div className=" ">
-              <Badge
+              <Button
                 key={c._id}
                 variant={"outline"}
                 className="h-[36px] border border-black ">
                 <p className="text-black font-bold text-xl ">{c.name}</p>
-              </Badge>
+              </Button>
             </div>
           );
         })}

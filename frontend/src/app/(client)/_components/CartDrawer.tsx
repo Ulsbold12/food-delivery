@@ -34,17 +34,18 @@ export const CartDrawer = () => {
           <ShoppingCart className="h-4 w-4 text-white" />
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <Tabs defaultValue="cart" className="flex-1 flex flex-col">
+      <SheetContent className="">
+        <Tabs defaultValue="cart" className="flex-1 flex flex-col ">
+          <p>Order Detail</p>
           <TabsList className="w-full rounded-none border-b bg-transparent p-0">
             <TabsTrigger
               value="cart"
-              className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
+              className="flex-1 rounded-2xl data-[state=active]:bg-red-500 data-[state=active]:text-white py-3 ">
               Cart
             </TabsTrigger>
             <TabsTrigger
               value="order"
-              className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
+              className="flex-1 rounded-2xl data-[state=active]:bg-red-500 data-[state=active]:text-white py-3">
               Order
             </TabsTrigger>
           </TabsList>
