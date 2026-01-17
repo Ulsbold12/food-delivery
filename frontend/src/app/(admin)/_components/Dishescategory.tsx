@@ -25,7 +25,7 @@ export const Dishescategory = () => {
       <div className="flex flex-row gap-10 grid sm:grid-cols-5">
         {categorys.map((c) => {
           return (
-            <div className=" ">
+            <div>
               <Button
                 key={c._id}
                 variant={"outline"}
