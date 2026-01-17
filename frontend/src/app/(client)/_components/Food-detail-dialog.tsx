@@ -41,23 +41,20 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
           <Plus className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent
-        className="sm:max-w-206.5 h-103  
-      ">
-        <DialogTitle></DialogTitle>
+      <DialogContent className="sm:max-w-206.5 h-103 ">
         <Button
           size="icon"
           className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md z-10 hover:bg-white h-8 w-8">
-          <X className="h-3.5 w-3.5" />
+          <X className="h-3.5 w-3.5 text-black" />
         </Button>
 
         {food && (
           <div className="flex flex-row">
-            <div className="relative h-91 w-94.25 ">
+            <div className="h-91 w-94.25 ">
               <img
                 src={food.image}
                 alt={food.name}
-                className="w-full h-full object-cover rounded-2xl"
+                className="w-94.25 h-91 object-cover rounded-2xl"
               />
             </div>
 
