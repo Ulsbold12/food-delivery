@@ -18,6 +18,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DialogTitle } from "@radix-ui/react-dialog";
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
 
@@ -57,7 +58,7 @@ export const AddCards = () => {
   });
 
   const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -70,7 +71,7 @@ export const AddCards = () => {
         {
           method: "POST",
           body: file,
-        },
+        }
       );
 
       if (!response.ok) {
@@ -135,7 +136,9 @@ export const AddCards = () => {
           -translate-x-1/2 -translate-y-1/2
           max-w-md
         ">
-        <h2 className="text-lg font-semibold">Add new Dish to Appetizers</h2>
+        <DialogTitle className="text-lg font-semibold">
+          Add new Dish to Appetizers
+        </DialogTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="">
