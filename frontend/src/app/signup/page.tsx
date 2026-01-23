@@ -17,10 +17,7 @@ export default function MultiStepWrapper() {
           {step === 2 && (
             <Step2 prev={() => setStep(1)} next={() => setStep(3)} />
           )}
-          {step === 3 && (
-            <Step3 prev={() => setStep(2)} next={() => setStep(4)} />
-          )}
-          {step === 4 && <Step4 />}
+          {step === 3 && <Step3 prev={() => setStep(2)} />}
         </div>
       </div>
 

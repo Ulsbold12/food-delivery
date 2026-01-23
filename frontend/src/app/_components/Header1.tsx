@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Location } from "./Location";
 import { Logo1 } from "./logo1";
 import { CartDrawer } from "../(client)/_components/CartDrawer";
+import { useAuth } from "@/context/authProvider";
 
 export const Header1 = () => {
+  const { user } = useAuth();
   return (
     <div className="w-screen h-[68px] bg-black flex justify-between items-center">
       <Logo1 />
@@ -31,6 +33,8 @@ export const Header1 = () => {
         </Button>
 
         <CartDrawer />
+
+        {user ? <></> : <Button>Login</Button>}
       </div>
     </div>
   );

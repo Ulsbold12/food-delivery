@@ -5,7 +5,7 @@ import { Dishescategory } from "./Dishescategory";
 
 export default function FoodMenu() {
   return (
-    <div className="">
+    <div>
       <Dishescategory />
       <AddDishcontent />
     </div>

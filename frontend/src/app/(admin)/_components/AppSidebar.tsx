@@ -25,7 +25,7 @@ export const AppSidebar = ({ active, setActive }: Props) => {
         <SidebarContent>
           <SidebarGroup className="flex flex-col gap-2 mt-8">
             <Button
-              className="bg-white text-white bg-black hover:bg-white hover:text-black"
+              className="bg-white text-white rounded-2xl bg-black  hover:bg-white hover:text-black"
               onClick={() => setActive("table")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export const AppSidebar = ({ active, setActive }: Props) => {
               <Link href="/admin/Foodmenu">Food menu</Link>
             </Button>
             <Button
-              className="bg-black text-white"
+              className="bg-black rounded-3xl text-white  hover:bg-white hover:text-black"
               onClick={() => setActive("add")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

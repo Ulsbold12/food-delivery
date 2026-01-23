@@ -8,19 +8,16 @@ import Step4 from "../login/_components/Step4";
 
 export default function MultiStepWrapper() {
   const [step, setStep] = useState(1);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div className="h-screen w-screen  flex items-center justify-center gap-6">
       <div className="bg-white rounded-3xl shadow-xl  max-w-[405px] flex flex-row ">
         <div className="flex items-center justify-center ">
-          {step === 1 && <Step1 next={() => setStep(2)} />}
-          {step === 2 && (
-            <Step2 prev={() => setStep(1)} next={() => setStep(3)} />
-          )}
           {step === 3 && (
             <Step3 prev={() => setStep(2)} next={() => setStep(4)} />
           )}
-          {step === 4 && <Step4 />}
         </div>
       </div>
 

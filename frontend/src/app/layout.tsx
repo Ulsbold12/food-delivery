@@ -6,6 +6,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { Headerwrapper } from "./_components/Headerwrapper";
 import { CartProvider } from "@/context/cart-context";
 import { Header1 } from "./_components/Header1";
+import { AuthProvider } from "@/context/authProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,11 +32,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <CartProvider>
-          <Headerwrapper />
+        <AuthProvider>
+          <CartProvider>
+            <Headerwrapper />
 
-          <SidebarProvider>{children}</SidebarProvider>
-        </CartProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

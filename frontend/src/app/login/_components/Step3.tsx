@@ -26,11 +26,10 @@ const schema = z
   });
 
 type Step2Props = {
-  next: () => void;
   prev: () => void;
 };
 
-export default function Step3({ next, prev }: Step2Props) {
+export default function Step3({ prev }: Step2Props) {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   });
@@ -81,12 +80,10 @@ export default function Step3({ next, prev }: Step2Props) {
               )}
             />
 
-            <h1 className="text-black" onClick={next}>
-              Forgot password ?
-            </h1>
+            <h1 className="text-black">Forgot password ?</h1>
 
             <div className="flex gap-3">
-              <Button type="button" className="flex-1 h-12">
+              <Button type="submit" className="flex-1 h-12">
                 Let’s Go
               </Button>
             </div>
