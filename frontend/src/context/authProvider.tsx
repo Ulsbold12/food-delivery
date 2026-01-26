@@ -1,10 +1,17 @@
 "use client";
 
+import { api } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 type AuthContextType = {
   user: User | null;
+  login: (username: string, password: string) => Promise<void>;
+  register: (
+    username: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
 };
 
 type User = {
@@ -28,6 +35,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const { user } = data;
 
     setUser(user);
+
+    router.push("/");
   };
 
   const register = async (
@@ -45,7 +54,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, login, register }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

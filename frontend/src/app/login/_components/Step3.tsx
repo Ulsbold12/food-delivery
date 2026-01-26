@@ -10,29 +10,37 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/authProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const schema = z
-  .object({
-    email: z.string().min(6, "Min 6 тэмдэгт"),
-    password: z.string(),
-  })
-  .refine((d) => d.password === d.confirm, {
-    message: "Password таарахгүй байна",
-    path: ["confirm"],
-  });
+const schema = z.object({
+  username: z.string(),
+  password: z.string(),
+});
 
 type Step2Props = {
   prev: () => void;
 };
 
-export default function Step3({ prev }: Step2Props) {
+export default function Step3() {
+  const { login } = useAuth();
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
   });
+
+  const onSubmit = async (value: z.infer<typeof schema>) => {
+    await login(value.username, value.password);
+    
+  };
 
   return (
     <Card className="w-[420px] border-none shadow-none">
@@ -43,17 +51,17 @@ export default function Step3({ prev }: Step2Props) {
 
       <CardContent>
         <Form {...form}>
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="email"
+              name="username"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Input
                       {...field}
-                      type="email"
-                      placeholder="Enter your email address"
+                      type="username"
+                      placeholder="Enter your username"
                       className="h-12"
                     />
                   </FormControl>
