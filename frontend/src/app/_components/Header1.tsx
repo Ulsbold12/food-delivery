@@ -5,8 +5,10 @@ import { Location } from "./Location";
 import { Logo1 } from "./logo1";
 import { CartDrawer } from "../(client)/_components/CartDrawer";
 import { useAuth } from "@/context/authProvider";
+import { useRouter } from "next/navigation";
 
 export const Header1 = () => {
+  const router = useRouter();
   const { user } = useAuth();
   return (
     <div className="w-screen h-[68px] bg-black flex justify-between items-center">
@@ -34,7 +36,11 @@ export const Header1 = () => {
 
         <CartDrawer />
 
-        {user ? <></> : <Button>Login</Button>}
+        {user ? (
+          <></>
+        ) : (
+          <Button onClick={() => router.push("/login")}>Login</Button>
+        )}r
       </div>
     </div>
   );
