@@ -31,7 +31,7 @@ const foodFormschema = z.object({
   price: z.string(),
   ingredients: z.string(),
   image: z.string(),
-  categoryId: z.string(),
+  categoryIds: z.string(),
 });
 
 type FoodFormValues = z.infer<typeof foodFormschema>;
@@ -53,12 +53,12 @@ export const AddCards = () => {
       price: "",
       ingredients: "",
       image: "",
-      categoryId: "",
+      categoryIds: "",
     },
   });
 
   const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -71,7 +71,7 @@ export const AddCards = () => {
         {
           method: "POST",
           body: file,
-        }
+        },
       );
 
       if (!response.ok) {
@@ -100,13 +100,15 @@ export const AddCards = () => {
     }
   };
 
-  const onSubmit = async (Values: FoodFormValues) => {
+  const onSubmit = async (values: FoodFormValues) => {
+    if (isUploading) return;
+
     await api.post("/foods/create", {
-      name: Values.name,
-      price: parseFloat(Values.price),
-      ingredients: Values.ingredients,
-      image: Values.image,
-      categoryId: [Values.categoryId],
+      name: values.name,
+      price: Number(values.price),
+      ingredients: values.ingredients,
+      image: values.image,
+      categoryIds: values.categoryIds,
     });
 
     form.reset();
@@ -180,7 +182,7 @@ export const AddCards = () => {
 
               <FormField
                 control={form.control}
-                name="categoryId"
+                name="categoryIds"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-bold ">Category</FormLabel>

@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Step1 from "../_components/Step1";
-import Step2 from "../_components/Step2";
+import Step1 from "./_components/Step1";
+import Step2 from "./_components/Step2";
 import Step3 from "../login/_components/Step3";
-import Step4 from "../login/_components/Step4";
 
-export default function MultiStepWrapper() {
+export default function Signup() {
   const [step, setStep] = useState(1);
 
   return (
@@ -17,7 +16,7 @@ export default function MultiStepWrapper() {
           {step === 2 && (
             <Step2 prev={() => setStep(1)} next={() => setStep(3)} />
           )}
-          {step === 3 && <Step3 prev={() => setStep(2)} />}
+          {step === 3 && <Step3 />}
         </div>
       </div>
 

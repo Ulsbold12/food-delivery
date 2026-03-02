@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -19,6 +20,7 @@ const schema = z.object({
 });
 
 export default function Step1({ next }: { next: () => void }) {
+  const router = useRouter();
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { email: "" },
@@ -61,7 +63,11 @@ export default function Step1({ next }: { next: () => void }) {
 
             <p className="text-center text-sm text-gray-400">
               Already have an account?
-              <span className="text-blue-600 ml-1 cursor-pointer">Log in</span>
+              <span
+                className="text-blue-600 ml-1 cursor-pointer"
+                onClick={() => router.push("/login")}>
+                Log in
+              </span>
             </p>
           </form>
         </Form>

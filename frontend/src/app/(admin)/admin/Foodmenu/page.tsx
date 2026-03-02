@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import FoodMenu from "../../_components/FoodMenu";
-import { Orders } from "../../_components/Orders";
+import { AddDishcontent } from "../../_components/AddDishcontent";
 
 export default function () {
   return (
-    <div className="">
-      <FoodMenu />
+    <div className="bg-gray-400">
+      <AddDishcontent />
     </div>
   );
 }

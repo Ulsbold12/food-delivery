@@ -21,13 +21,13 @@ export function FoodGrid({ categoryId, categoryName }: FoodGridProps) {
     const getData = async () => {
       console.log("CategoryId");
       const { data } = await api.get<FoodItem[]>(
-        `/foods/category/${categoryId}`
+        `/foods/category/${categoryId}`,
       );
       console.log("huhd", data);
       setFoods(data);
     };
     getData();
-  }, []); // dependancy array
+  }, []);
 
   const handleAddToCart = (food: FoodItem, quantity: number) => {
     for (let i = 0; i < quantity; i++) addToCart(food);
