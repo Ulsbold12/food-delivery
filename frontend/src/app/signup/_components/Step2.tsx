@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/authProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,20 +26,24 @@ const schema = z
   });
 
 type Step2Props = {
-  next: () => void;
   prev: () => void;
+  email: string;
+  username: string;
 };
 
-export default function Step2({ next, prev }: Step2Props) {
+export default function Step2({ prev, email, username }: Step2Props) {
+  const { register } = useAuth();
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { password: "", confirm: "" },
   });
 
-  const onSubmit = () => next();
+  const onSubmit = async (values: z.infer<typeof schema>) => {
+    await register(username, email, values.password);
+  };
 
   return (
-    <Card className="w-105 border-none shadow-none">
+    <Card className="w-[420px] border-none shadow-none">
       <CardHeader className="space-y-2">
         <h1 className="text-3xl font-bold">Create a strong password</h1>
         <p className="text-gray-400">
@@ -48,7 +53,7 @@ export default function Step2({ next, prev }: Step2Props) {
 
       <CardContent>
         <Form {...form}>
-          <form className="space-y-5 " onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="password"
@@ -76,7 +81,7 @@ export default function Step2({ next, prev }: Step2Props) {
                     <Input
                       {...field}
                       type="password"
-                      placeholder="Confirm"
+                      placeholder="Confirm password"
                       className="h-12"
                     />
                   </FormControl>
@@ -94,7 +99,7 @@ export default function Step2({ next, prev }: Step2Props) {
                 Back
               </Button>
               <Button className="flex-1 h-12" type="submit">
-                Let’s Go
+                Create Account
               </Button>
             </div>
           </form>

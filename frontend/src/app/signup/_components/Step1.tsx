@@ -17,16 +17,19 @@ import { z } from "zod";
 
 const schema = z.object({
   email: z.string().email("Зөв email оруул"),
+  username: z.string().min(3, "Username хамгийн багадаа 3 тэмдэгт"),
 });
 
-export default function Step1({ next }: { next: () => void }) {
+type Step1Data = { email: string; username: string };
+
+export default function Step1({ next }: { next: (data: Step1Data) => void }) {
   const router = useRouter();
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: { email: "" },
+    defaultValues: { email: "", username: "" },
   });
 
-  const onSubmit = () => next();
+  const onSubmit = (values: z.infer<typeof schema>) => next(values);
 
   return (
     <Card className="w-[420px] border-none shadow-none">
@@ -57,8 +60,25 @@ export default function Step1({ next }: { next: () => void }) {
               )}
             />
 
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Enter your username"
+                      className="h-12"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button className="w-full h-12 text-base" type="submit">
-              Let’s Go
+              Next
             </Button>
 
             <p className="text-center text-sm text-gray-400">

@@ -1,10 +1,8 @@
 "use client";
 
-import { Description } from "@radix-ui/react-dialog";
 import { FoodCard, FoodItem } from "./FoodCard";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/axios";
-import { date } from "zod";
 import { useCart } from "@/context/cart-context";
 
 interface FoodGridProps {
@@ -15,23 +13,19 @@ interface FoodGridProps {
 export function FoodGrid({ categoryId, categoryName }: FoodGridProps) {
   const [foods, setFoods] = useState<FoodItem[]>([]);
   const { addToCart } = useCart();
-  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
 
   useEffect(() => {
     const getData = async () => {
-      console.log("CategoryId");
       const { data } = await api.get<FoodItem[]>(
         `/foods/category/${categoryId}`,
       );
-      console.log("huhd", data);
       setFoods(data);
     };
     getData();
-  }, []);
+  }, [categoryId]);
 
   const handleAddToCart = (food: FoodItem, quantity: number) => {
     for (let i = 0; i < quantity; i++) addToCart(food);
-    setSelectedFood(null);
   };
 
   return (

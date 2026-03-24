@@ -121,7 +121,7 @@ export const AddDishcontent = () => {
 
                 <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
                   <div className="grid sm:grid-cols-4 gap-4">
-                    <AddDishCard />
+                    <AddDishCard categoryName={category.name} />
                     {list.map((food) => (
                       <FoodCard
                         key={food._id}
@@ -147,7 +147,7 @@ export const AddDishcontent = () => {
 
           <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
             <div className="grid sm:grid-cols-4 gap-4">
-              <AddDishCard />
+              <AddDishCard categoryName={activeCategory?.name} />
               {activeFoods.map((food) => (
                 <FoodCard
                   key={food._id}

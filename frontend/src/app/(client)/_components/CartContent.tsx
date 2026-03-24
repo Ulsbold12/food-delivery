@@ -7,6 +7,7 @@ import { CartItem as CartItemType } from "@/context/cart-context";
 import { DeliveryLocation } from "./DeliveryLocation";
 import { PaymentSummary } from "./PaymentSummary";
 import { CartItem } from "./CartItem";
+import { api } from "@/lib/axios";
 
 interface CartContentProps {
   cartItems: CartItemType[];
@@ -25,9 +26,35 @@ export const CartContent = ({
   onUpdateQuantity,
   onRemoveFromCart,
 }: CartContentProps) => {
-  const [count, setCount] = useState(1);
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log({ cartItems });
+  const handleCheckout = async () => {
+    if (!deliveryAddress.trim()) {
+      alert("Хүргэлтийн хаягаа оруулна уу");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const orderItems = cartItems.map((item) => ({
+        foodId: item._id,
+        quantity: item.quantity,
+        price: item.price,
+      }));
+
+      await api.post("/orders/create", {
+        orderItems,
+        deliveryAddress,
+      });
+
+      alert("Захиалга амжилттай!");
+    } catch (err) {
+      alert("Захиалга үүсгэхэд алдаа гарлаа. Нэвтэрсэн эсэхээ шалгана уу.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -51,7 +78,10 @@ export const CartContent = ({
 
         {cartItems.length > 0 && (
           <>
-            <DeliveryLocation />
+            <DeliveryLocation
+              value={deliveryAddress}
+              onChange={setDeliveryAddress}
+            />
             <PaymentSummary
               subtotal={subtotal}
               shipping={shipping}
@@ -62,9 +92,12 @@ export const CartContent = ({
       </div>
 
       {cartItems.length > 0 && (
-        <div className="mt-4 bg-white  rounded-2xl p-4">
-          <Button className="w-full mt-6 bg-red-500 rounded-full text-white">
-            Checkout
+        <div className="mt-4 bg-white rounded-2xl p-4">
+          <Button
+            className="w-full mt-6 bg-red-500 rounded-full text-white"
+            onClick={handleCheckout}
+            disabled={isLoading}>
+            {isLoading ? "Илгээж байна..." : "Checkout"}
           </Button>
         </div>
       )}

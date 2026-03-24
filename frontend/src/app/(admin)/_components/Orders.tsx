@@ -13,20 +13,17 @@ import {
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -36,31 +33,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    Total: 316,
-    status: "success",
-    custumer: "ken99@example.com",
-    food: "beef steak",
-    DeliveryAddress: "suhbaatar duureg 10-r bair",
-    Date: "2024-1-2",
-    Deliverystate: "Pending",
-  },
-];
-
-export type Payment = {
+export type OrderRow = {
   id: string;
   Total: number;
-  status: "pending" | "processing" | "success" | "failed";
+  status: string;
   custumer: string;
   food: string;
   DeliveryAddress: string;
   Date: string;
-  Deliverystate: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<OrderRow>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -84,77 +67,45 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "№",
-    header: "№",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("№")}</div>,
-  },
-  {
     accessorKey: "custumer",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          custumer
-          <ArrowUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("custumer")}</div>
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Customer
+        <ArrowUpDown />
+      </Button>
     ),
+    cell: ({ row }) => <div>{row.getValue("custumer")}</div>,
   },
-
   {
     accessorKey: "food",
-    header: "food",
+    header: "Food",
     cell: ({ row }) => (
       <div className="flex flex-row gap-4 items-center">
-        <div className="capitalize">{row.getValue("food")}</div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
-              <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Delivered </DropdownMenuItem>
-            <DropdownMenuItem>Pending</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div>{row.getValue("food")}</div>
       </div>
     ),
   },
-
   {
     accessorKey: "Date",
     header: "Date",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("Date")}</div>,
+    cell: ({ row }) => <div>{row.getValue("Date")}</div>,
   },
-
   {
     accessorKey: "Total",
     header: "Total",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("Total")}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("Total")}</div>,
   },
-
   {
     accessorKey: "DeliveryAddress",
     header: "Delivery Address",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("DeliveryAddress")}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("DeliveryAddress")}</div>,
   },
-
   {
     accessorKey: "status",
-    header: "Delivery states",
+    header: "Status",
     cell: ({ row }) => {
-      const payment = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -166,7 +117,7 @@ export const columns: ColumnDef<Payment>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Delivered </DropdownMenuItem>
+            <DropdownMenuItem>Delivered</DropdownMenuItem>
             <DropdownMenuItem>Pending</DropdownMenuItem>
             <DropdownMenuItem>Cancelled</DropdownMenuItem>
           </DropdownMenuContent>
@@ -177,13 +128,47 @@ export const columns: ColumnDef<Payment>[] = [
 ];
 
 export function Orders() {
+  const [data, setData] = React.useState<OrderRow[]>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  React.useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch("http://localhost:4000/orders/all");
+        const orders = await res.json();
+
+        const rows: OrderRow[] = orders.map((order: any) => {
+          const foodNames = order.orderItems
+            ?.map((item: any) => item.foodId?.name ?? "Unknown")
+            .join(", ") ?? "";
+
+          const total = order.orderItems?.reduce(
+            (sum: number, item: any) => sum + item.price * item.quantity,
+            0
+          ) ?? 0;
+
+          return {
+            id: order._id,
+            Total: total,
+            status: order.status,
+            custumer: order.userId?.username ?? order.userId?.email ?? "Unknown",
+            food: foodNames,
+            DeliveryAddress: order.deliveryAddress ?? "",
+            Date: new Date(order.createdAt).toLocaleDateString(),
+          };
+        });
+
+        setData(rows);
+      } catch (err) {
+        console.error("Failed to fetch orders:", err);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   const table = useReactTable({
     data,
@@ -212,18 +197,16 @@ export function Orders() {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -248,7 +231,7 @@ export function Orders() {
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center">
-                  No results.
+                  No orders yet.
                 </TableCell>
               </TableRow>
             )}

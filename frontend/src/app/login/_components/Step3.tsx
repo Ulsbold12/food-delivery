@@ -12,8 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/authProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -28,6 +27,7 @@ type Step2Props = {
 
 export default function Step3() {
   const { login } = useAuth();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -97,8 +97,10 @@ export default function Step3() {
             </div>
             <p className="text-center text-sm text-gray-400">
               Don’t have an account?
-              <span className="text-blue-600 ml-1 cursor-pointer">
-                Sign up{" "}
+              <span
+                className="text-blue-600 ml-1 cursor-pointer"
+                onClick={() => router.push("/signup")}>
+                Sign up
               </span>
             </p>
           </form>

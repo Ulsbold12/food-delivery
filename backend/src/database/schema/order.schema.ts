@@ -10,6 +10,7 @@ const orderSchema = new Schema(
         price: { type: Number, required: true },
       },
     ],
+    deliveryAddress: { type: String, required: false, default: "" },
     status: { type: String, required: true, default: "pending" },
   },
   {

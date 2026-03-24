@@ -23,8 +23,9 @@ type AuthContextType = {
 
 type User = {
   _id: string;
-  name: string;
+  username: string;
   email: string;
+  role: string;
 };
 
 type LoginRespoonse = {
@@ -51,12 +52,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setUser(user);
 
     if (user.role === "admin") {
-      router.push("/admin/dashboard");
+      router.push("/admin/Foodmenu");
     } else {
       router.push("/");
     }
-
-    router.push("/");
   };
 
   const logout = () => {
@@ -70,7 +69,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     email: string,
     password: string,
   ) => {
-    const { data } = await api.post("/auth/register", {
+    await api.post("/auth/register", {
       username,
       email,
       password,

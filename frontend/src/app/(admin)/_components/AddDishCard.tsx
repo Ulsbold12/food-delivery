@@ -2,7 +2,11 @@
 
 import { AddCards } from "./AddCards";
 
-export const AddDishCard = () => {
+interface AddDishCardProps {
+  categoryName?: string;
+}
+
+export const AddDishCard = ({ categoryName }: AddDishCardProps) => {
   return (
     <div className="relative h-[241px] w-[270px] rounded-2xl overflow-hidden">
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -22,7 +26,9 @@ export const AddDishCard = () => {
 
       <div className="h-full flex flex-col items-center justify-center">
         <AddCards />
-        <p className="mt-3 font-medium">Add new Dish to Salads </p>
+        <p className="mt-3 font-medium">
+          {categoryName ? `Add new Dish to ${categoryName}` : "Add new Dish"}
+        </p>
       </div>
     </div>
   );
