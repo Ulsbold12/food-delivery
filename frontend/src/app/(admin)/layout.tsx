@@ -4,7 +4,6 @@ import { useState } from "react";
 import { AppSidebar } from "./_components/AppSidebar";
 
 import { Dishescategory } from "./_components/Dishescategory";
-import FoodMenu from "./_components/FoodMenu";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
