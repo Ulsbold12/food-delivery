@@ -41,7 +41,7 @@ export type Category = {
   name: string;
 };
 
-export const AddCards = () => {
+export const AddCards = ({ onSuccess }: { onSuccess?: () => void }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadImageUrl, setUploadImageUrl] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
@@ -113,6 +113,7 @@ export const AddCards = () => {
 
     form.reset();
     setUploadImageUrl("");
+    onSuccess?.();
   };
 
   useEffect(() => {

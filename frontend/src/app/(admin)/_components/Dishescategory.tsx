@@ -23,18 +23,14 @@ export const Dishescategory = () => {
     <div className="w-[1171px] h-[176px] bg-white flex flex-col border mt-[84px] ml-[40px] rounded-3xl border-black">
       <h1>Dishes category</h1>
       <div className="flex flex-row gap-10 grid sm:grid-cols-5">
-        {categorys.map((c) => {
-          return (
-            <div>
-              <Button
-                key={c._id}
-                variant={"outline"}
-                className="h-[36px] border border-black ">
-                <p className="text-black font-bold text-xl ">{c.name}</p>
-              </Button>
-            </div>
-          );
-        })}
+        {categorys.map((c) => (
+          <Button
+            key={c._id}
+            variant={"outline"}
+            className="h-[36px] border border-black">
+            <p className="text-black font-bold text-xl">{c.name}</p>
+          </Button>
+        ))}
       </div>
     </div>
   );

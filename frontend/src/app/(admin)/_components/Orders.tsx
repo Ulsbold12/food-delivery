@@ -105,7 +105,8 @@ export const columns: ColumnDef<OrderRow>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
+      const updateStatus = (table.options.meta as { updateStatus?: (id: string, status: string) => void })?.updateStatus;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -117,9 +118,9 @@ export const columns: ColumnDef<OrderRow>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Delivered</DropdownMenuItem>
-            <DropdownMenuItem>Pending</DropdownMenuItem>
-            <DropdownMenuItem>Cancelled</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => updateStatus?.(row.original.id, "Delivered")}>Delivered</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => updateStatus?.(row.original.id, "Pending")}>Pending</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => updateStatus?.(row.original.id, "Cancelled")}>Cancelled</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -170,9 +171,25 @@ export function Orders() {
     fetchOrders();
   }, []);
 
+  const updateStatus = async (id: string, status: string) => {
+    try {
+      await fetch(`http://localhost:4000/orders/${id}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      setData((prev) =>
+        prev.map((row) => (row.id === id ? { ...row, status } : row))
+      );
+    } catch (err) {
+      console.error("Failed to update status:", err);
+    }
+  };
+
   const table = useReactTable({
     data,
     columns,
+    meta: { updateStatus },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),

@@ -4,9 +4,10 @@ import { AddCards } from "./AddCards";
 
 interface AddDishCardProps {
   categoryName?: string;
+  onSuccess?: () => void;
 }
 
-export const AddDishCard = ({ categoryName }: AddDishCardProps) => {
+export const AddDishCard = ({ categoryName, onSuccess }: AddDishCardProps) => {
   return (
     <div className="relative h-[241px] w-[270px] rounded-2xl overflow-hidden">
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -25,7 +26,7 @@ export const AddDishCard = ({ categoryName }: AddDishCardProps) => {
       </svg>
 
       <div className="h-full flex flex-col items-center justify-center">
-        <AddCards />
+        <AddCards onSuccess={onSuccess} />
         <p className="mt-3 font-medium">
           {categoryName ? `Add new Dish to ${categoryName}` : "Add new Dish"}
         </p>

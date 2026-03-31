@@ -21,27 +21,25 @@ export const AddDishcontent = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null); // null = ALL
 
+  const getData = async () => {
+    try {
+      const [foodsRes, categoriesRes] = await Promise.all([
+        fetch("http://localhost:4000/foods"),
+        fetch("http://localhost:4000/categories"),
+      ]);
+
+      const foodsData = await foodsRes.json();
+      const categoriesData = await categoriesRes.json();
+
+      setFoods(foodsData);
+      setCategories(categoriesData);
+      setActiveCategoryId(null);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    }
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const [foodsRes, categoriesRes] = await Promise.all([
-          fetch("http://localhost:4000/foods"),
-          fetch("http://localhost:4000/categories"),
-        ]);
-
-        const foodsData = await foodsRes.json();
-        const categoriesData = await categoriesRes.json();
-
-        setFoods(foodsData);
-        setCategories(categoriesData);
-
-        // default: ALL (null) байг. Хэрвээ эхний category-г default болгохыг хүсвэл энд өөрчилнө
-        setActiveCategoryId(null);
-      } catch (err) {
-        console.error("Fetch error:", err);
-      }
-    };
-
     getData();
   }, []);
 
@@ -121,7 +119,7 @@ export const AddDishcontent = () => {
 
                 <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
                   <div className="grid sm:grid-cols-4 gap-4">
-                    <AddDishCard categoryName={category.name} />
+                    <AddDishCard categoryName={category.name} onSuccess={getData} />
                     {list.map((food) => (
                       <FoodCard
                         key={food._id}
@@ -147,7 +145,7 @@ export const AddDishcontent = () => {
 
           <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
             <div className="grid sm:grid-cols-4 gap-4">
-              <AddDishCard categoryName={activeCategory?.name} />
+              <AddDishCard categoryName={activeCategory?.name} onSuccess={getData} />
               {activeFoods.map((food) => (
                 <FoodCard
                   key={food._id}
