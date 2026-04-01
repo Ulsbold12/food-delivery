@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useCart } from "@/context/cart-context";
 
 interface FoodDetailDailogProps {
@@ -42,6 +43,9 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-206.5 h-103 ">
+        <VisuallyHidden>
+          <DialogTitle>{food?.name ?? "Food detail"}</DialogTitle>
+        </VisuallyHidden>
         <Button
           size="icon"
           className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md z-10 hover:bg-white h-8 w-8">

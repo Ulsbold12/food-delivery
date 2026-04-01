@@ -28,6 +28,8 @@ export function FoodGrid({ categoryId, categoryName }: FoodGridProps) {
     for (let i = 0; i < quantity; i++) addToCart(food);
   };
 
+  if (foods.length === 0) return null;
+
   return (
     <div className="px-8 py-8">
       <h3 className="text-white text-2xl font-bold mb-6">{categoryName}</h3>
