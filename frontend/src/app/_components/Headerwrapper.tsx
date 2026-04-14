@@ -13,6 +13,8 @@ export function Headerwrapper() {
     "/admin/Foodmenu",
     "/admin/Orders",
     "/login",
+    "/forgot-password",
+    "/reset-password",
   ];
 
   if (hideHeaderRoutes.includes(pathname)) {

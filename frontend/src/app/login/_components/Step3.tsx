@@ -13,21 +13,20 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/authProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  username: z.string(),
-  password: z.string(),
+  username: z.string().min(1, "Username оруулна уу"),
+  password: z.string().min(1, "Нууц үг оруулна уу"),
 });
-
-type Step2Props = {
-  prev: () => void;
-};
 
 export default function Step3() {
   const { login } = useAuth();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -38,8 +37,15 @@ export default function Step3() {
   });
 
   const onSubmit = async (value: z.infer<typeof schema>) => {
-    await login(value.username, value.password);
-    
+    try {
+      setIsLoading(true);
+      setError("");
+      await login(value.username, value.password);
+    } catch {
+      setError("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -60,7 +66,7 @@ export default function Step3() {
                   <FormControl>
                     <Input
                       {...field}
-                      type="username"
+                      type="text"
                       placeholder="Enter your username"
                       className="h-12"
                     />
@@ -88,11 +94,19 @@ export default function Step3() {
               )}
             />
 
-            <h1 className="text-black">Forgot password ?</h1>
+            <p
+              className="text-sm text-black cursor-pointer hover:underline text-right"
+              onClick={() => router.push("/forgot-password")}>
+              Forgot password?
+            </p>
+
+            {error && (
+              <p className="text-sm text-red-500 text-center">{error}</p>
+            )}
 
             <div className="flex gap-3">
-              <Button type="submit" className="flex-1 h-12">
-                Let’s Go
+              <Button type="submit" className="flex-1 h-12" disabled={isLoading}>
+                {isLoading ? "Нэвтэрч байна..." : "Let’s Go"}
               </Button>
             </div>
             <p className="text-center text-sm text-gray-400">

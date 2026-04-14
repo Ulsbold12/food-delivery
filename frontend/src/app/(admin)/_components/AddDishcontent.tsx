@@ -43,7 +43,6 @@ export const AddDishcontent = () => {
     getData();
   }, []);
 
-  // categoryId -> foods map (ALL view-д хэрэгтэй, хурдан)
   const foodsByCategory = useMemo(() => {
     const map: Record<string, Food[]> = {};
     for (const f of foods) {
@@ -119,7 +118,10 @@ export const AddDishcontent = () => {
 
                 <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
                   <div className="grid sm:grid-cols-4 gap-4">
-                    <AddDishCard categoryName={category.name} onSuccess={getData} />
+                    <AddDishCard
+                      categoryName={category.name}
+                      onSuccess={getData}
+                    />
                     {list.map((food) => (
                       <FoodCard
                         key={food._id}
@@ -128,6 +130,7 @@ export const AddDishcontent = () => {
                         price={food.price}
                         ingredients={food.ingredients}
                         image={food.image}
+                        onSuccess={getData}
                       />
                     ))}
                   </div>
@@ -145,7 +148,10 @@ export const AddDishcontent = () => {
 
           <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
             <div className="grid sm:grid-cols-4 gap-4">
-              <AddDishCard categoryName={activeCategory?.name} onSuccess={getData} />
+              <AddDishCard
+                categoryName={activeCategory?.name}
+                onSuccess={getData}
+              />
               {activeFoods.map((food) => (
                 <FoodCard
                   key={food._id}
@@ -154,6 +160,7 @@ export const AddDishcontent = () => {
                   price={food.price}
                   ingredients={food.ingredients}
                   image={food.image}
+                  onSuccess={getData}
                 />
               ))}
             </div>

@@ -8,6 +8,8 @@ const userSchema = new Schema(
     profile: { type: String, required: false },
     address: { type: String, required: false },
     role: { type: String, required: true, default: "customer" },
+    resetToken: { type: String, required: false },
+    resetTokenExpiry: { type: Date, required: false },
   },
   {
     timestamps: true,

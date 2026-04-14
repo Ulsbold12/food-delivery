@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/authProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -33,13 +34,24 @@ type Step2Props = {
 
 export default function Step2({ prev, email, username }: Step2Props) {
   const { register } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { password: "", confirm: "" },
   });
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
-    await register(username, email, values.password);
+    try {
+      setIsLoading(true);
+      setError("");
+      await register(username, email, values.password);
+    } catch {
+      setError("Бүртгэл амжилтгүй. Имэйл эсвэл username аль хэдийн ашиглагдсан байж болно.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -90,16 +102,21 @@ export default function Step2({ prev, email, username }: Step2Props) {
               )}
             />
 
+            {error && (
+              <p className="text-sm text-red-500 text-center">{error}</p>
+            )}
+
             <div className="flex gap-3">
               <Button
                 type="button"
                 variant="outline"
                 className="flex-1 h-12"
-                onClick={prev}>
+                onClick={prev}
+                disabled={isLoading}>
                 Back
               </Button>
-              <Button className="flex-1 h-12" type="submit">
-                Create Account
+              <Button className="flex-1 h-12" type="submit" disabled={isLoading}>
+                {isLoading ? "Үүсгэж байна..." : "Create Account"}
               </Button>
             </div>
           </form>

@@ -26,7 +26,7 @@ export const AddDishCard = ({ categoryName, onSuccess }: AddDishCardProps) => {
       </svg>
 
       <div className="h-full flex flex-col items-center justify-center">
-        <AddCards onSuccess={onSuccess} />
+        <AddCards onSuccess={onSuccess} categoryName={categoryName} />
         <p className="mt-3 font-medium">
           {categoryName ? `Add new Dish to ${categoryName}` : "Add new Dish"}
         </p>

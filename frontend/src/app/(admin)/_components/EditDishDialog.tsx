@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -19,14 +21,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { Upload, X } from "lucide-react";
+import { Pencil, Upload, X } from "lucide-react";
 import Image from "next/image";
-
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import type { Category } from "./AddCards";
 
-const foodFormschema = z.object({
+const foodFormSchema = z.object({
   name: z.string(),
   price: z.string(),
   ingredients: z.string(),
@@ -34,25 +36,38 @@ const foodFormschema = z.object({
   categoryIds: z.string(),
 });
 
-type FoodFormValues = z.infer<typeof foodFormschema>;
+type FoodFormValues = z.infer<typeof foodFormSchema>;
 
-export type Category = {
-  _id: string;
+interface EditDishDialogProps {
+  id: string;
   name: string;
-};
+  price: number;
+  ingredients: string;
+  image: string;
+  onSuccess?: () => void;
+}
 
-export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; categoryName?: string }) => {
+export const EditDishDialog = ({
+  id,
+  name,
+  price,
+  ingredients,
+  image,
+  onSuccess,
+}: EditDishDialogProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [uploadImageUrl, setUploadImageUrl] = useState<string>("");
+  const [uploadImageUrl, setUploadImageUrl] = useState<string>(image);
   const [isUploading, setIsUploading] = useState(false);
+  const [open, setOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const form = useForm<FoodFormValues>({
-    resolver: zodResolver(foodFormschema),
+    resolver: zodResolver(foodFormSchema),
     defaultValues: {
-      name: "",
-      price: "",
-      ingredients: "",
-      image: "",
+      name,
+      price: String(price),
+      ingredients,
+      image,
       categoryIds: "",
     },
   });
@@ -64,20 +79,15 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
     if (!file) return;
 
     setIsUploading(true);
-
     try {
       const response = await fetch(
         `/api/upload?filename=${encodeURIComponent(file.name)}`,
-        {
-          method: "POST",
-          body: file,
-        },
+        { method: "POST", body: file },
       );
 
       if (!response.ok) {
         const error = await response.json();
-        console.error("Upload error:", error);
-        alert(`Upload failed:${error.details || error.error}`);
+        alert(`Upload failed: ${error.details || error.error}`);
         return;
       }
 
@@ -85,7 +95,7 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
       setUploadImageUrl(blob.url);
       form.setValue("image", blob.url);
     } catch (error) {
-      console.error("Upload faied", error);
+      console.error("Upload failed", error);
       alert("Upload failed. Please try again.");
     } finally {
       setIsUploading(false);
@@ -103,16 +113,15 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
   const onSubmit = async (values: FoodFormValues) => {
     if (isUploading) return;
 
-    await api.post("/foods/create", {
+    await api.put(`/foods/${id}`, {
       name: values.name,
       price: Number(values.price),
       ingredients: values.ingredients,
       image: values.image,
-      categoryIds: values.categoryIds,
+      ...(values.categoryIds ? { categoryIds: values.categoryIds } : {}),
     });
 
-    form.reset();
-    setUploadImageUrl("");
+    setOpen(false);
     onSuccess?.();
   };
 
@@ -121,43 +130,31 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
       const { data } = await api.get<Category[]>("/categories");
       setCategories(data);
     };
-
     fetchCategories();
   }, []);
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center text-xl">
-          +
+        <button className="absolute top-20 left-50 w-10 h-10 bg-white text-orange-500 rounded-full flex items-center justify-center">
+          <Pencil className="w-4 h-4 text-gray-600" />
         </button>
       </DialogTrigger>
 
-      <DialogContent
-        className="
-          fixed left-1/2 top-1/2
-          -translate-x-1/2 -translate-y-1/2
-          max-w-md
-        ">
-        <DialogTitle className="text-lg font-semibold">
-          {categoryName ? `Add new Dish to ${categoryName}` : "Add new Dish"}
-        </DialogTitle>
+      <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-md">
+        <DialogTitle className="text-lg font-semibold">Edit Dish</DialogTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="">
-              <div className="flex flex-row gap-10 ">
+            <div>
+              <div className="flex flex-row gap-10">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-bold ">Food name</FormLabel>
+                      <FormLabel className="font-bold">Food name</FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="hoolnii ner bichne"
-                          className="h-12"
-                        />
+                        <Input {...field} className="h-12" />
                       </FormControl>
                     </FormItem>
                   )}
@@ -168,13 +165,9 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
                   name="price"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-bold ">Food price</FormLabel>
+                      <FormLabel className="font-bold">Food price</FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="hoolnii une bichne"
-                          className="h-12"
-                        />
+                        <Input {...field} className="h-12" />
                       </FormControl>
                     </FormItem>
                   )}
@@ -186,8 +179,7 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
                 name="categoryIds"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-bold ">Category</FormLabel>
-
+                    <FormLabel className="font-bold">Category</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}>
@@ -213,17 +205,14 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
                 name="ingredients"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-bold ">Ingredients</FormLabel>
+                    <FormLabel className="font-bold">Ingredients</FormLabel>
                     <FormControl>
-                      <Textarea
-                        {...field}
-                        placeholder="hoolnii une bichne"
-                        className="w-[412px] h-[90px]"
-                      />
+                      <Textarea {...field} className="w-[412px] h-[90px]" />
                     </FormControl>
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="image"
@@ -238,13 +227,13 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
                           accept="image/*"
                           onChange={handleFileUpload}
                           className="hidden"
-                          id="file-upload"
+                          id="edit-file-upload"
                         />
                         {uploadImageUrl ? (
                           <div className="relative border-2 border-gray-300 rounded-lg overflow-hidden">
                             <Image
                               src={uploadImageUrl}
-                              alt="Uploaded food"
+                              alt="Food image"
                               width={400}
                               height={300}
                               className="w-full h-48 object-cover"
@@ -258,8 +247,8 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
                           </div>
                         ) : (
                           <label
-                            htmlFor="file-upload"
-                            className="border-2 border-around border-gray-300 rounded-lg p-12 flex flex-col items-center justify-center hover:border-gray-400 transition-colors cursor-pointer">
+                            htmlFor="edit-file-upload"
+                            className="border-2 border-gray-300 rounded-lg p-12 flex flex-col items-center justify-center hover:border-gray-400 transition-colors cursor-pointer">
                             <Upload className="w-8 h-8 text-gray-400 mb-3" />
                             <p className="text-sm text-gray-600">
                               {isUploading
@@ -273,12 +262,13 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
                   </FormItem>
                 )}
               />
+
               <div className="flex justify-end">
                 <Button
                   type="submit"
                   disabled={isUploading}
-                  className="bg-black w-[93px] h-[40px] ">
-                  Add dish
+                  className="bg-black w-[93px] h-[40px]">
+                  Save
                 </Button>
               </div>
             </div>

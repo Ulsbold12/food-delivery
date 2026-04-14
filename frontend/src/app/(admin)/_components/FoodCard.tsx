@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { Pencil } from "lucide-react";
+import { EditDishDialog } from "./EditDishDialog";
 
 type FoodCardProps = {
   id: string;
@@ -9,9 +9,10 @@ type FoodCardProps = {
   price: number;
   ingredients: string;
   image: string;
+  onSuccess?: () => void;
 };
 
-export function FoodCard({ name, price, ingredients, image }: FoodCardProps) {
+export function FoodCard({ id, name, price, ingredients, image, onSuccess }: FoodCardProps) {
   return (
     <Card className="w-[270px] h-[241px] border">
       <div className="relative flex  justify-center">
@@ -19,9 +20,14 @@ export function FoodCard({ name, price, ingredients, image }: FoodCardProps) {
           src={image}
           className="w-[238px] h-[129px] object-cover rounded-2xl"
         />
-        <button className="absolute top-20 left-50  w-10 h-10 bg-white text-orange-500 rounded-full flex items-center justify-center">
-          <Pencil className="w-4 h-4 text-gray-600" />
-        </button>
+        <EditDishDialog
+          id={id}
+          name={name}
+          price={price}
+          ingredients={ingredients}
+          image={image}
+          onSuccess={onSuccess}
+        />
       </div>
 
       <div className="pl-4 pr-4">

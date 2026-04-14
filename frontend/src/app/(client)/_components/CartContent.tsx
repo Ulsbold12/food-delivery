@@ -30,6 +30,12 @@ export const CartContent = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckout = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("Захиалга өгөхийн тулд нэвтэрнэ үү.");
+      return;
+    }
+
     if (!deliveryAddress.trim()) {
       alert("Хүргэлтийн хаягаа оруулна уу");
       return;

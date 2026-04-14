@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import { connectToDatabase } from "./database/index.ts";
 import { FoodRouter } from "./routes/food.router.ts";

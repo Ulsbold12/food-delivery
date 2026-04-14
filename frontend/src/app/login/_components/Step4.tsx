@@ -10,24 +10,47 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { api } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  email: z.string().email("Зөв email оруул"),
+  email: z.string().email("Зөв имэйл оруулна уу"),
 });
 
 export default function Step4() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { email: "" },
   });
 
+  const onSubmit = async (values: z.infer<typeof schema>) => {
+    try {
+      setIsLoading(true);
+      setError("");
+      setSuccess("");
+      await api.post("/auth/forgot-password", { email: values.email });
+      setSuccess("Нууц үг сэргээх линк таны имэйлд илгээгдлээ.");
+      form.reset();
+    } catch {
+      setError("Имэйл илгээхэд алдаа гарлаа. Дахин оролдоно уу.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Card className="w-[420px] border-none shadow-none">
       <CardHeader className="space-y-2">
-        <h1 className="text-3xl font-bold">Reset your password </h1>
+        <h1 className="text-3xl font-bold">Reset your password</h1>
         <p className="text-gray-400">
           Enter your email to receive a password reset link.
         </p>
@@ -35,7 +58,7 @@ export default function Step4() {
 
       <CardContent>
         <Form {...form}>
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="email"
@@ -53,14 +76,23 @@ export default function Step4() {
               )}
             />
 
-            <Button className="w-full h-12 text-base" type="submit">
-              Send link
+            {success && (
+              <p className="text-sm text-green-600 text-center">{success}</p>
+            )}
+            {error && (
+              <p className="text-sm text-red-500 text-center">{error}</p>
+            )}
+
+            <Button className="w-full h-12 text-base" type="submit" disabled={isLoading}>
+              {isLoading ? "Илгээж байна..." : "Send link"}
             </Button>
 
             <p className="text-center text-sm text-gray-400">
-              Don’t have an account?
-              <span className="text-blue-600 ml-1 cursor-pointer">
-                Sign up{" "}
+              Нэвтрэх хуудас руу буцах?{" "}
+              <span
+                className="text-blue-600 cursor-pointer"
+                onClick={() => router.push("/login")}>
+                Log in
               </span>
             </p>
           </form>
