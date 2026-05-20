@@ -9,6 +9,7 @@ import {
   DialogTrigger,
   Dialog,
   DialogTitle,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useCart } from "@/context/cart-context";
@@ -46,11 +47,14 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
         <VisuallyHidden>
           <DialogTitle>{food?.name ?? "Food detail"}</DialogTitle>
         </VisuallyHidden>
-        <Button
-          size="icon"
-          className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md z-10 hover:bg-white h-8 w-8">
-          <X className="h-3.5 w-3.5 text-black" />
-        </Button>
+        <DialogClose asChild>
+          <button
+            type="button"
+            aria-label="Close"
+            className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white h-8 w-8 flex items-center justify-center">
+            <X className="h-3.5 w-3.5 text-black" />
+          </button>
+        </DialogClose>
 
         {food && (
           <div className="flex flex-row">
