@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { FoodModel } from "../../database/schema/food.schema.js";
+import { FoodModel } from "../../database/schema/food.schema.ts";
 
 export const getFoods: RequestHandler = async (_req, res) => {
   const foods = await FoodModel.find({}).populate("categoryIds");

@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { FoodModel } from "../../database/schema/food.schema.js";
+import { FoodModel } from "../../database/schema/food.schema.ts";
 import { CategoryModel } from "../../database/schema/category.schema.ts";
 
 export const createCategory: RequestHandler = async (req, res) => {

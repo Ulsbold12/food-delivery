@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { UserModel } from "../../database/schema/user.schema.js";
+import { UserModel } from "../../database/schema/user.schema.ts";
 
 export const resetPassword: RequestHandler = async (req, res) => {
   const { token, password } = req.body;

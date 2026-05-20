@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { UserModel } from "../../database/schema/user.schema.js";
+import { UserModel } from "../../database/schema/user.schema.ts";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
 
