@@ -8,6 +8,7 @@ export default function LoginPage() {
       <div className="bg-white rounded-3xl shadow-xl max-w-[405px] flex flex-row">
         <div className="flex items-center justify-center">
           <Step3 />
+          
         </div>
       </div>
 

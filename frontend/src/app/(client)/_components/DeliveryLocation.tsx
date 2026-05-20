@@ -1,6 +1,8 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
+import dynamic from "next/dynamic";
+
+const DeliveryMap = dynamic(() => import("./DeliveryMap"), { ssr: false });
 
 interface DeliveryLocationProps {
   value: string;
@@ -11,12 +13,7 @@ export function DeliveryLocation({ value, onChange }: DeliveryLocationProps) {
   return (
     <div className="mt-6">
       <h4 className="text-sm font-semibold mb-2">Delivery Location</h4>
-      <Input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="Please share your complete address"
-        className="bg-white h-[80px] border border-black"
-      />
+      <DeliveryMap value={value} onChange={onChange} />
     </div>
   );
 }

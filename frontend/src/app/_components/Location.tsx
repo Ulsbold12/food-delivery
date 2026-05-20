@@ -1,11 +1,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { ChevronDownIcon } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+
+const DeliveryMap = dynamic(
+  () => import("../(client)/_components/DeliveryMap"),
+  { ssr: false }
+);
 
 export const Location = () => {
+  const [address, setAddress] = useState("");
+
   return (
     <div>
       <Dialog>
@@ -25,24 +38,26 @@ export const Location = () => {
               <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
               <circle cx="12" cy="10" r="3" />
             </svg>
-            Delivery address:Add Location
+            {address ? address.slice(0, 30) + "..." : "Delivery address: Add Location"}
             <ChevronDownIcon />
           </Button>
         </DialogTrigger>
-        <DialogContent className="w-[502px] h-[288px] bg-white rounded-2xl ">
+        <DialogContent className="w-[520px] bg-white rounded-2xl">
           <div>
             <h1 className="text-xl font-semibold">
-              Please write your delivery address!
+              Хүргэлтийн хаягаа сонгоно уу
             </h1>
-            <Button></Button>
           </div>
-          <Input
-            placeholder="Please share your complete address"
-            className="w-[454px] h-[80px] border rounded-2xl"
-          />
-          <div className="flex flex-row justify-end gap-2 ">
-            <Button className="border bg-white text-black ">Cancel</Button>
-            <Button className="bg-black text-white">Deliver Here</Button>
+          <DeliveryMap value={address} onChange={setAddress} />
+          <div className="flex flex-row justify-end gap-2">
+            <DialogClose asChild>
+              <Button className="border bg-white text-black">Cancel</Button>
+            </DialogClose>
+            <DialogClose asChild>
+              <Button className="bg-black text-white" disabled={!address}>
+                Deliver Here
+              </Button>
+            </DialogClose>
           </div>
         </DialogContent>
       </Dialog>

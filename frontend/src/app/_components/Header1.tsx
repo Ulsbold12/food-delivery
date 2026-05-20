@@ -25,9 +25,18 @@ export const Header1 = () => {
             <CartDrawer />
           </>
         ) : (
-          <div>
-            <Button onClick={() => router.push("/login")}>Login</Button>
-            <Button onClick={() => router.push("/signup")}>Sign up</Button>
+          <div className="flex gap-3">
+            <Button
+              onClick={() => router.push("/login")}
+              variant="ghost"
+              className="text-white border border-white/30 hover:bg-white/10 hover:text-white rounded-full px-6 h-9 text-sm font-medium transition-all">
+              Login
+            </Button>
+            <Button
+              onClick={() => router.push("/signup")}
+              className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6 h-9 text-sm font-medium transition-all shadow-md">
+              Sign up
+            </Button>
           </div>
         )}
       </div>

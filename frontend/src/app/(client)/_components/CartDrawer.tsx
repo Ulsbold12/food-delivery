@@ -10,13 +10,14 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { CartContent } from "./CartContent";
+import { OrderContent } from "./OrderContent";
 
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/cart-context";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const CartDrawer = () => {
-  const { cartItems, removeFromCart, updateQuantity, getTotalPrice } =
+  const { cartItems, removeFromCart, updateQuantity, getTotalPrice, clearCart } =
     useCart();
 
   console.log(cartItems);
@@ -58,15 +59,14 @@ export const CartDrawer = () => {
               total={total}
               onUpdateQuantity={updateQuantity}
               onRemoveFromCart={removeFromCart}
+              onClearCart={clearCart}
             />
           </TabsContent>
 
           <TabsContent
             value="order"
-            className="flex-1 overflow-auto px-6 py-4 mt-0">
-            <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-              <p>No orders yet</p>
-            </div>
+            className="flex-1 overflow-auto mt-0">
+            <OrderContent />
           </TabsContent>
         </Tabs>
       </SheetContent>

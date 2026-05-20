@@ -12,6 +12,7 @@ import {
 
 type AuthContextType = {
   user: User | null;
+  isLoading: boolean;
   logout: () => void;
   login: (username: string, password: string) => Promise<void>;
   register: (
@@ -38,6 +39,7 @@ export const AuthContext = createContext({} as AuthContextType);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const login = async (username: string, password: string) => {
     const { data } = await api.post<LoginRespoonse>("/auth/login", {
@@ -92,13 +94,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setUser(data.user);
       } catch {
         localStorage.removeItem("accessToken");
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchMe();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

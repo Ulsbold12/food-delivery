@@ -8,16 +8,17 @@ import { useRouter } from "next/navigation";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const [active, setActive] = useState<"table" | "add">("table");
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (user === null) return;
-    if (user.role !== "admin") {
+    if (isLoading) return;
+    if (!user || user.role !== "admin") {
       router.replace("/");
     }
-  }, [user, router]);
+  }, [user, isLoading, router]);
 
+  if (isLoading) return null;
   if (!user || user.role !== "admin") return null;
 
   return (

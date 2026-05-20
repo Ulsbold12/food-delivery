@@ -16,6 +16,7 @@ interface CartContentProps {
   total: number;
   onUpdateQuantity: (id: number, quantity: number) => void;
   onRemoveFromCart: (id: number) => void;
+  onClearCart: () => void;
 }
 
 export const CartContent = ({
@@ -25,6 +26,7 @@ export const CartContent = ({
   total,
   onUpdateQuantity,
   onRemoveFromCart,
+  onClearCart,
 }: CartContentProps) => {
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +56,7 @@ export const CartContent = ({
         deliveryAddress,
       });
 
+      onClearCart();
       alert("Захиалга амжилттай!");
     } catch (err) {
       alert("Захиалга үүсгэхэд алдаа гарлаа. Нэвтэрсэн эсэхээ шалгана уу.");
