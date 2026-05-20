@@ -43,7 +43,7 @@ export function FoodDetailDailog({ food, onAddToCart }: FoodDetailDailogProps) {
           <Plus className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-206.5 h-103 ">
+      <DialogContent showCloseButton={false} className="sm:max-w-206.5 h-103 ">
         <VisuallyHidden>
           <DialogTitle>{food?.name ?? "Food detail"}</DialogTitle>
         </VisuallyHidden>
