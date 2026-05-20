@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -41,7 +46,13 @@ export type Category = {
   name: string;
 };
 
-export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; categoryName?: string }) => {
+export const AddCards = ({
+  onSuccess,
+  categoryName,
+}: {
+  onSuccess?: () => void;
+  categoryName?: string;
+}) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadImageUrl, setUploadImageUrl] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
@@ -139,6 +150,12 @@ export const AddCards = ({ onSuccess, categoryName }: { onSuccess?: () => void; 
           -translate-x-1/2 -translate-y-1/2
           max-w-md
         ">
+        {/* Close button in top-right corner */}
+        <DialogClose asChild>
+          <button className="absolute top-3 right-3 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200">
+            <X className="w-4 h-4 text-gray-700" />
+          </button>
+        </DialogClose>
         <DialogTitle className="text-lg font-semibold">
           {categoryName ? `Add new Dish to ${categoryName}` : "Add new Dish"}
         </DialogTitle>
