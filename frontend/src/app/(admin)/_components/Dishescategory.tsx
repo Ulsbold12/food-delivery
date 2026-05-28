@@ -12,7 +12,7 @@ export const Dishescategory = () => {
   const [categorys, setCategorys] = useState<category[]>([]);
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch("http://localhost:4000/categories");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000"}/categories`);
       const data = await res.json();
       setCategorys(data);
     };

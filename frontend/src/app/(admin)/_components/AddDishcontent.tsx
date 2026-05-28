@@ -24,8 +24,8 @@ export const AddDishcontent = () => {
   const getData = async () => {
     try {
       const [foodsRes, categoriesRes] = await Promise.all([
-        fetch("http://localhost:4000/foods"),
-        fetch("http://localhost:4000/categories"),
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000"}/foods`),
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000"}/categories`),
       ]);
 
       const foodsData = await foodsRes.json();

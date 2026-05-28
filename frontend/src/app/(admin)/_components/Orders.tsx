@@ -138,7 +138,7 @@ export function Orders() {
   React.useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch("http://localhost:4000/orders/all");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000"}/orders/all`);
         const orders = await res.json();
 
         const rows: OrderRow[] = orders.map((order: any) => {
@@ -173,7 +173,7 @@ export function Orders() {
 
   const updateStatus = async (id: string, status: string) => {
     try {
-      await fetch(`http://localhost:4000/orders/${id}/status`, {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000"}/orders/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
