@@ -207,9 +207,8 @@ export function Orders() {
   });
 
   return (
-    <div className="w-[1171px] h-[800px] ml-10">
-      <div className="flex items-center py-4"></div>
-      <div className="overflow-hidden rounded-md border">
+    <div className="w-full">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

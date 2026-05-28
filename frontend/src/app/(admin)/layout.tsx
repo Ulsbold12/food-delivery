@@ -1,22 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AppSidebar } from "./_components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@/context/authProvider";
-import { useRouter } from "next/navigation";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const [active, setActive] = useState<"table" | "add">("table");
-  const { user, isLoading } = useAuth();
-  const router = useRouter();
+  const { isLoading } = useAuth();
 
   if (isLoading) return null;
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full min-h-screen bg-gray-50">
       <AppSidebar active={active} setActive={setActive} />
-      <div className="w-full">
+      <div className="flex-1 overflow-auto">
         <SidebarProvider>{children}</SidebarProvider>
       </div>
     </div>

@@ -81,8 +81,8 @@ export const AddDishcontent = () => {
   return (
     <>
       {/* Buttons */}
-      <div className="flex  gap-2 mb-4 border border-black mt-10 p-2 bg-white flex-col ml-10 mr-10">
-        <h1 className="font-bold">Dishes category</h1>
+      <div className="flex gap-2 mb-6 border border-gray-200 rounded-xl p-4 bg-white flex-col">
+        <h1 className="font-bold text-lg mb-1">Dishes category</h1>
         <div className="flex gap-2 flex-wrap">
           <Button
             variant={activeCategoryId === null ? "default" : "outline"}
@@ -111,12 +111,12 @@ export const AddDishcontent = () => {
             if (list.length === 0) return null; // хоосон category-г харуулахгүй бол
 
             return (
-              <div key={category._id} className="mb-10">
-                <h1 className="font-bold text-2xl text-black">
+              <div key={category._id} className="mb-8">
+                <h2 className="font-bold text-xl text-black mb-3">
                   {category.name}
-                </h1>
+                </h2>
 
-                <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
+                <div className="bg-white border border-gray-200 rounded-xl p-4">
                   <div className="grid sm:grid-cols-4 gap-4">
                     <AddDishCard
                       categoryName={category.name}
@@ -141,12 +141,12 @@ export const AddDishcontent = () => {
         </>
       ) : (
         /* ✅ Single category view: зөвхөн сонгосон category */
-        <div className="mb-10">
-          <h1 className="font-bold text-2xl text-black ">
+        <div className="mb-8">
+          <h2 className="font-bold text-xl text-black mb-3">
             {activeCategory?.name ?? "Category"}
-          </h1>
+          </h2>
 
-          <div className="w-[1171px] bg-white border mt-6 ml-[40px] p-4">
+          <div className="bg-white border border-gray-200 rounded-xl p-4">
             <div className="grid sm:grid-cols-4 gap-4">
               <AddDishCard
                 categoryName={activeCategory?.name}
