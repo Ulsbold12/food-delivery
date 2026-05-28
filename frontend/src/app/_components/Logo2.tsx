@@ -3,7 +3,7 @@
 export const Logo2 = () => {
   return (
     <div className="flex flex-col gap-2 pl-10 ">
-      <img src="/logo1.png" className="w-[40px] h-[40px] ml-5" />
+      <img src="/logo.png" className="w-[40px] h-[40px] ml-5" />
       <div className="flex flex-col">
         <div className="flex flex-row">
           <p className="text-white font-bold text-lg">Nom</p>
