@@ -11,15 +11,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!user || user.role !== "admin") {
-      router.replace("/");
-    }
-  }, [user, isLoading, router]);
-
   if (isLoading) return null;
-  if (!user || user.role !== "admin") return null;
 
   return (
     <div className="flex w-full">
